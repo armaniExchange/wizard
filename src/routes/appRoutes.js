@@ -16,6 +16,8 @@ import ClassLists from '../containers/ADC/SLB/ClassLists/ClassLists.js';
 import Application from '../containers/ADC/SLB/Application/Application.js';
 import Global from '../containers/ADC/SLB/Global/Global.js';
 import Session from '../containers/ADC/SLB/Session/Session.js';
+// playground for components and other demo code
+import Components from '../containers/Playground/Components';
 
 const appRoutes = (
 	<Router history={createBrowserHistory()}>
@@ -33,7 +35,11 @@ const appRoutes = (
 		    		<Route path="/adc/slb/application" component={Application} />
 		    		<Route path="/adc/slb/global" component={Global} />
 		    		<Route path="/adc/slb/session" component={Session} />
+		    		<Route path="/adc/slb/virtual-servers" component={VirtualServers} />
 		    	</Route>
+		    </Route>
+		    <Route path="/playground">
+		    	<IndexRoute component={Components}/>
 		    </Route>
 	        <Route path="*" component={NotFoundPage} />
 	    </Route>

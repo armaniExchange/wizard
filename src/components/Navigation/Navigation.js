@@ -2,58 +2,42 @@
 import './Navigation.css';
 // Libraries
 import React, { Component } from 'react';
-import { Link } from 'react-router';
 
 class Navigation extends Component {
-	constructor(props) {
-		super(props);
-	}
+	// constructor(props) {
+	// 	super(props);
+	// 	this.state = {
+	//     	slideIndex: 0,
+	//     };
+	// }
+
 
 	render() {
 		return (
-			<nav className="navbar navbar-default">
-			    <div className="container-fluid">
-				    <div className="navbar-header">
-				        <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-					        <span className="sr-only">Toggle navigation</span>
-					        <span className="icon-bar"></span>
-					        <span className="icon-bar"></span>
-					        <span className="icon-bar"></span>
-				        </button>
-				        <Link className="navbar-brand" to="/">Home</Link>
-				    </div>
-				    <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-				        <ul className="nav navbar-nav">
-					        <li>
-					            <Link to="/adc/slb">Virtual Servers</Link>
-					        </li>
-					        <li>
-					            <Link to="/adc/slb/virtual-services">Virtual Services</Link>
-					        </li>
-					        <li>
-					            <Link to="/adc/slb/service-groups">Service Groups</Link>
-					        </li>
-					        <li>
-					            <Link to="/adc/slb/servers">Servers</Link>
-					        </li>
-					        <li>
-					            <Link to="/adc/slb/policy-limits">Policy Limits</Link>
-					        </li>
-					        <li>
-					            <Link to="/adc/slb/class-limits">Class Lists</Link>
-					        </li>
-					        <li>
-					            <Link to="/adc/slb/application">Application</Link>
-					        </li>
-					        <li>
-					            <Link to="/adc/slb/global">Global</Link>
-					        </li>
-					        <li>
-					            <Link to="/adc/slb/session">Session</Link>
-					        </li>
-				        </ul>
-				    </div>
-			    </div>
+			<nav className="blue">
+				<div className="nav-wrapper">
+					<div className="main-menu">
+						<ul id="dropdown1" className="dropdown-content">
+						  <li><a href="#!">one</a></li>
+						  <li><a href="#!">two</a></li>
+						  <li className="divider"></li>
+						  <li><a href="#!">three</a></li>
+						</ul>
+						<ul className="hide-on-med-and-down">
+						  <li><a href="#!">A10</a></li>
+						  <li><a href="sass.html">Sass</a></li>
+						  <li><a href="badges.html">Components</a></li>
+						  <li><a className="dropdown-button" href="#!" data-activates="dropdown1">Dropdown<i className="material-icons right">arrow_drop_down</i></a></li>
+						</ul>
+					</div>
+
+					<ul className="right hide-on-med-and-down">
+					    <li><a href="sass.html"><i className="material-icons">search</i></a></li>
+					    <li><a href="badges.html"><i className="material-icons">view_module</i></a></li>
+					    <li><a href="collapsible.html"><i className="material-icons">refresh</i></a></li>
+					    <li><a href="mobile.html"><i className="material-icons">more_vert</i></a></li>
+					</ul>
+				</div>
 			</nav>
 		);
 	}
