@@ -23,17 +23,19 @@ class VirtualServers extends Page {
 						</Col>
 						<Col cols="4">
 							<FieldWidget leftTitle={_('Enabled')} >
-
 								<RadiosInput ns="slb.virtual_server.enabled">
 									<Radio value="item1">Item1</Radio>
-									<Radio>Item2</Radio>
 								</RadiosInput>
 							</FieldWidget>
 							<FieldWidget leftTitle={_('Enabled Options')} >
 
 								<GroupWidget dep="slb.virtual_server.enabled" >
-									<TextInput model="slb.virtual_server.item_1_1" depValue="item1" />
-									<TextInput model="slb.virtual_server.item_1_2" depValue="item2" />
+									<FieldWidget>
+										<TextInput model="slb.virtual_server.item_1_1" depValue="item1" />
+									</FieldWidget>
+									<FieldWidget>
+										<TextInput model="slb.virtual_server.item_1_2" depValue="item2" />
+									</FieldWidget>
 								</GroupWidget>
 							</FieldWidget>
 							
