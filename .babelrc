@@ -4,6 +4,10 @@
         "development": {
             "plugins": [
                 [
+                    "babel-root-import",
+                    {
+                        "rootPathSuffix": "src"
+                    },
                     "react-transform",
                     {
                         "transforms": [{
