@@ -18,6 +18,7 @@ import Global from '../containers/ADC/SLB/Global/Global.js';
 import Session from '../containers/ADC/SLB/Session/Session.js';
 // playground for components and other demo code
 import Components from '../containers/Playground/Components';
+import Mui from '../containers/Playground/Components/Mui';
 
 const appRoutes = (
 	<Router history={createBrowserHistory()}>
@@ -40,6 +41,7 @@ const appRoutes = (
 		    </Route>
 		    <Route path="/playground">
 		    	<IndexRoute component={Components}/>
+		    	<Route path="/playground/mui" component={Mui} />
 		    </Route>
 	        <Route path="*" component={NotFoundPage} />
 	    </Route>

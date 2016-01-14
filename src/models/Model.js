@@ -1,9 +1,5 @@
+export default class Model   {
 
-// stands for 
-export class Model {
-	setStore() {
-
-	}
 
 	delete() {
 

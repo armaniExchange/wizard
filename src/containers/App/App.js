@@ -1,15 +1,24 @@
 // Styles
 import './App.css';
 // React & Redux
-import React, { Component, PropTypes } from 'react';
-import { connect } from 'react-redux';
+import React from 'react';
+// import { connect } from 'react-redux';
 // Components
 import Navigation from '../../components/Navigation/Navigation';
+import Page from '~/containers/Page';
+// import * as globalActions from '~/actions/global-actions';
+// import { bindActionCreators } from 'redux';
 
-class App extends Component {
+class App extends Page {
 	constructor(props) {
 		super(props);
 	}
+
+	// static propTypes: {
+	// 	appState  : PropTypes.object.isRequired,
+	// 	appActions  : PropTypes.object.isRequired,
+	// 	location   : PropTypes.object.isRequired
+	// }
 
 	componentDidUpdate() {
 		/* eslint-disable */
@@ -21,38 +30,51 @@ class App extends Component {
 	}
 
 	render() {
-		const {
-			navHeaderTitle
-		} = this.props.appState;
+		// const {
+		// 	navHeaderTitle
+		// } = this.props.appState;
 
 		return (
 			// The outer-most <div> is used by Material Design Lite to prevent DOM clash with React
 			<div>
 				<section>
 					<Navigation
-					    headerTitle={navHeaderTitle} />
-					<main>
-					    <div>
-							{this.props.children}
-					    </div>
-					</main>
+					    headerTitle='Flux'>
+						  <main className="mdl-layout__content">
+						    <div className="page-content">
+						    	{this.props.children}
+						    </div>
+						  </main>
+					</Navigation>
 				</section>
 			</div>
 		);
 	}
 }
 
-App.propTypes = {
-	appState  : PropTypes.object.isRequired,
-	location   : PropTypes.object.isRequired
-};
+// App.propTypes = {
+// 	appState  : PropTypes.object.isRequired,
+// 	appActions  : PropTypes.object.isRequired,
+// 	location   : PropTypes.object.isRequired
+// };
 
-function mapStateToProps(state) {
-	return {
-		appState: state.app.toJS()
-	};
-}
+// App.propTypes = {
+// 	appState  : PropTypes.object.isRequired,
+// 	appActions: PropTypes.object.isRequired
+// };
 
-export default connect(
-	mapStateToProps
-)(App);
+// function mapStateToProps(state) {
+// 	return {
+// 		appState: state.app.toJS()
+// 	};
+// }
+
+// function mapDispatchToProps(dispatch) {
+// 	return {
+// 		appActions: bindActionCreators(globalActions, dispatch)
+// 	};
+// }
+
+
+// export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default App;
