@@ -6,8 +6,13 @@ import {Col, Row} from '~/widgets/layouts';
 import {CheckboxInput, EditableTable, Radio, RadiosInput, SelectInput, TextareaInput, TextInput, RaisedButtonWidget} from '~/widgets/forms';
 import _ from '~/utils/i18n';
 import AppDispatcher from '~/store/AppDispatcher';
+import ApiStore from '~/store/ApiStore';
 
 class VirtualServers extends Page {
+	constructor(props) {
+		super(props);
+		this.getAllNodes = ::this._getAllNodes;
+	}
 
 	componentDidMount() {
 		// console.log('componentDidMount');	
@@ -16,10 +21,19 @@ class VirtualServers extends Page {
 
 	_demoClick() {
 		AppDispatcher.dispatch({
-	      actionType: 'UPDATE'
+	      actionType: 'UPDATE_NODE',
+	      node: 'slb.virtual-server.name',
+	      value:{test:'1'}
 	    });
+	} 
+
+	_getAllNodes() {
+		// console.log(this);
+		let nodes = ApiStore.getAllNodes();
+		console.log(nodes);
+		this.setState(nodes);
 	}
-	
+
 	render() {
 		// console.log(this.props);
 		return (
@@ -92,6 +106,7 @@ class VirtualServers extends Page {
 					<Col>
 						<FieldWidget title=" ">
 							<RaisedButtonWidget primary={true} onClick={this._demoClick} label="Submit" />
+							<RaisedButtonWidget secondary={false} label="All Nodes" onClick={this.getAllNodes} />
 							<RaisedButtonWidget secondary={false} label="Cancel" />
 						</FieldWidget>						
 					</Col>

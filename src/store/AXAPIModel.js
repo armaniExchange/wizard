@@ -6,8 +6,14 @@ class AXAPIModel extends Model {
 	}
 
 	updateNodeValue(node, value=null) {
-		this.storage['node'] = value;
+		this.storage = {node:node, value:value};
 		this.currentNode = node;
+		// console.log('updated storage', this.storage);
+	}
+
+	getAllNodes() {
+		// console.log('get all nodes from AXAPI MODEL', this.storage);
+		return this.storage;
 	}
 
 	doDelete(conditions) {

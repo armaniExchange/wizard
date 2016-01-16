@@ -4,6 +4,7 @@ import GlobalConfig from '~/constants/Configs';
 // import { bindActionCreators } from 'redux';
 // import * as globalActions from '~/actions/global-actions';
 import PageFlowStore from '~/store/PageFlowStore';
+import ApiStore from '~/store/ApiStore';
 
 class Page extends Component {
 	mixins = [GlobalConfig]
@@ -19,6 +20,7 @@ class Page extends Component {
 	componentDidMount() {
 		// console.log('componentDidMount');
 		PageFlowStore.addChangeListener(this._onInit);
+		ApiStore.addChangeListener(this._onInit);
 	}
 
 	componentWillReceiveProps() {
@@ -41,6 +43,7 @@ class Page extends Component {
 	componentWillUnmount() {
 		// console.log('componentWillUnmount');	
 	    PageFlowStore.removeChangeListener(this._onInit);
+	    ApiStore.removeChangeListener(this._onInit);
 	}	
 
 	_onInit() {

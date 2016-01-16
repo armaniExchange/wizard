@@ -39,6 +39,13 @@ Object.assign(ApiStore, EventEmitter.prototype, {
     return apiModel.doSearch(conditions);
   },
 
+  getCurrentNodes: function() {
+
+  },
+
+  getAllNodes: function() {
+    return apiModel.getAllNodes();
+  },
 
   getOperateDetail: function(node) {
     apiModel.setCurrentNode(node);

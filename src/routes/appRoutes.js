@@ -19,6 +19,7 @@ import Session from '../containers/ADC/SLB/Session/Session.js';
 // playground for components and other demo code
 import Components from '../containers/Playground/Components';
 import Mui from '../containers/Playground/Components/Mui';
+import ApiStoreTest from '../containers/Playground/Components/ApiStoreTest';
 
 const appRoutes = (
 	<Router history={createBrowserHistory()}>
@@ -42,6 +43,7 @@ const appRoutes = (
 		    <Route path="/playground">
 		    	<IndexRoute component={Components}/>
 		    	<Route path="/playground/mui" component={Mui} />
+		    	<Route path="/playground/api-store-test" component={ApiStoreTest} />
 		    </Route>
 	        <Route path="*" component={NotFoundPage} />
 	    </Route>
