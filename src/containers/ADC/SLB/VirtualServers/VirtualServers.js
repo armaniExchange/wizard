@@ -23,21 +23,37 @@ class VirtualServers extends Page {
 	render() {
 		// console.log(this.props);
 		return (
-			<FormWidget model="slb.virtual_server" action="submitForm" title="Create Virtual Server">
+			<FormWidget model="slb.virtual-server" action="submitForm" title="Create Virtual Server">
 				
 				<SectionWidget>
 					
 					<Col size="6">
 						<FieldWidget title={_('Name')} >
-							<TextInput model="slb.virtual_server.name" hintText="Hint Text" />
+							<TextInput model="slb.virtual-server.name" hintText="No special chars" />
 						</FieldWidget>
-						<FieldWidget title={_('Virtual Server Template')} createAction="adc.slb.virtual_server.template" modal="dialog" modelSize="100x300">
-							<TextInput model="slb.virtual_server.template" />
+
+						<FieldWidget title={_('IP Address/Mask Length')} >
+							<TextInput model="slb.virtual-server.ip-address" hintText="8.8.8.9/24" />
 						</FieldWidget>
+
+											
 					</Col>
+
+
 					<Col size="6">
+						<EditableTable />						
+					</Col>
+
+				</SectionWidget>
+
+				<SectionWidget title="Advanced Fields">		
+					<Col size="6">
+						<FieldWidget title={_('Virtual Server Template')} createAction="adc.slb.virtual-server.template" modal="dialog" modelSize="100x300">
+							<TextInput model="slb.virtual-server.template" />
+						</FieldWidget>
+
 						<FieldWidget title={_('Enabled')} >
-							<RadiosInput ns="slb.virtual_server.enabled" name="test">
+							<RadiosInput ns="slb.virtual-server.enabled" name="test">
 								<Radio value="item1" label="go to ludicrous speed" style={{marginBottom:16}}/>
 								<Radio value="item2" label="go to ludicrous speed" style={{marginBottom:16}}/>
 								<Radio value="item3" label="go to ludicrous speed" style={{marginBottom:16}} disabled={true}/>
@@ -45,25 +61,19 @@ class VirtualServers extends Page {
 						</FieldWidget>
 
 						<FieldWidget title={_('Enabled Options')} >
-							<GroupWidget dep="slb.virtual_server.enabled" >
+							<GroupWidget dep="slb.virtual-server.enabled" >
 								<FieldWidget>
-									<TextInput model="slb.virtual_server.item_1_1" depValue="item1" />
+									<TextInput model="slb.virtual-server.item_1_1" depValue="item1" />
 								</FieldWidget>
 								<FieldWidget>
-									<TextInput model="slb.virtual_server.item_1_2" depValue="item2" />
+									<TextInput model="slb.virtual-server.item_1_2" depValue="item2" />
 								</FieldWidget>
 							</GroupWidget>
-						</FieldWidget>
-						
+						</FieldWidget>						
 					</Col>
 
-				</SectionWidget>
-
-				<SectionWidget title="Advanced Fields">					
-					<Col size="12">
-						<FieldWidget title="Test Editable">
-							<EditableTable />
-						</FieldWidget>
+					<Col size="6">
+		
 						<FieldWidget title="Test SelectInput">
 							<SelectInput />
 						</FieldWidget>

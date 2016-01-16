@@ -19,7 +19,7 @@ export default class Col extends Layout {
 			size = 12;
 		}
 
-		let classes = 'mdl-cell col col-md-'+ size;
+		let classes = 'col col-md-'+ size;
 
 		return (
 			<div className={classes} {...other} >
