@@ -1,6 +1,9 @@
+import {Component} from 'react';
 
-class Model  {
-	constructor() {
+class Model extends Component {
+
+	constructor(props) {
+		super(props);
 		this._storage = [];
 		this._currentNode = '';
 		this._updatedNode = {};

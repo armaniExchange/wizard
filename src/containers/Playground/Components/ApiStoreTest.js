@@ -1,27 +1,28 @@
 // React & Redux
-import React, { Component } from 'react';
+import React from 'react';
 
-import FlatButton from 'material-ui/lib/flat-button';
-import AppDispatcher from '~/store/AppDispatcher';
-import ApiStore from '~/store/ApiStore';
+import {RaisedButtonWidget, TextInput} from '~/widgets/forms';
+// import AppDispatcher from '~/store/AppDispatcher';
+// import ApiStore from '~/store/ApiStore';
+import Page from '~/containers/Page';
 
 
-class ApiStoreTest extends Component {
+class ApiStoreTest extends Page {
 	
 	constructor(props) {
 		super(props);
-		this.addNode = ::this._addNode;
+		// this.addNode = ::this._addNode;
 		this.state = {};
 	}
 
-	_addNode() {
-		AppDispatcher.dispatch({
-	      actionType: 'UPDATE_NODE',
-	      node: 'slb.virtual-server.name',
-	      value:'slbname1'
-	    });
-	    this.setState(ApiStore.getAllNodes());
-	}
+	// _addNode() {
+	// 	AppDispatcher.dispatch({
+	//       actionType: 'UPDATE_NODE',
+	//       node: 'slb.virtual-server.name',
+	//       value:'slbname1'
+	//     });
+	//     this.setState(ApiStore.getAllNodes());
+	// }
 	
 
 	
@@ -33,7 +34,9 @@ class ApiStoreTest extends Component {
 
 		return (
 			<main>
-			 	<FlatButton label="Default" onClick={this.addNode} />
+			 	<RaisedButtonWidget label="Add A Node"  />
+			 	<TextInput model="slb.virtual-server.name" />
+			 	<TextInput model="slb.virtual-server.ip-address" />
 
 				<ul>
 					{lists}

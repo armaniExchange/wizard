@@ -1,19 +1,18 @@
 import AppDispatcher from '~/store/AppDispatcher';
-import ActionConstants from '~/constants/ActionTypes';
+import * as ActionTypes from '~/constants/action-types';
 import EventEmitter from 'events';
 import AXAPIModel from '~/store/AXAPIModel';
 
 /**
  * 1. Connect to AXAPI Model
  */
-var ActionTypes = ActionConstants.ActionTypes;
 var CHANGE_EVENT = 'change';
 
 var ApiStore = {}, apiModel = new AXAPIModel();
 Object.assign(ApiStore, EventEmitter.prototype, {
 
   init: function() {
-    console.log('init page flow store');
+    // console.log('init page flow store');
   },
 
   emitChange: function() {
@@ -59,41 +58,41 @@ ApiStore.dispatchToken = AppDispatcher.register(function(action) {
   switch (action.actionType) {
 
     case ActionTypes.UPDATE:
-      console.log('execute UPDATE action');
+      // console.log('execute UPDATE action');
       apiModel.doUpdate();
       ApiStore.emitChange();
       break;
 
     case ActionTypes.DELETE:
-      console.log('execute DELETE action');
+      // console.log('execute DELETE action');
       apiModel.doDelete();
       ApiStore.emitChange();
       break;
 
     case ActionTypes.ADD:
-      console.log('execute ADD action');
+      // console.log('execute ADD action');
       ApiStore.emitChange();
       break;
 
     case ActionTypes.SEARCH:
-      console.log('execute SEARCH action');
+      // console.log('execute SEARCH action');
       apiModel.doSearch();
       ApiStore.emitChange();
       break;
 
     case ActionTypes.STATUS:
-      console.log('execute Operate status action');
+      // console.log('execute Operate status action');
       ApiStore.emitChange();
       break;
 
     case ActionTypes.UPDATE_NODE:
-      console.log('execute UPDATE NODE action');
+      // console.log('execute UPDATE NODE action');
       apiModel.updateNodeValue(action.node, action.value);
       ApiStore.emitChange();
       break;
 
     default:
-      console.log('do nothing');
+      // console.log('do nothing');
       // do nothing
   }
 

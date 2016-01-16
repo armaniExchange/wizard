@@ -1,19 +1,18 @@
 import AppDispatcher from '~/store/AppDispatcher';
-import ActionConstants from '~/constants/ActionTypes';
+import * as ActionTypes from '~/constants/action-types';
 import EventEmitter from 'events';
 
 /**
  * 1. Theme
  * 2. Global Data Management, like title
  */
-var ActionTypes = ActionConstants.ActionTypes;
 var CHANGE_EVENT = 'change';
 
 var PageFlowStore = {}, pageData = {'data': 'test'};
 Object.assign(PageFlowStore, EventEmitter.prototype, {
 
   init: function() {
-    console.log('init page flow store');
+    // console.log('init page flow store');
   },
 
   emitChange: function() {
@@ -55,12 +54,12 @@ PageFlowStore.dispatchToken = AppDispatcher.register(function(action) {
   switch (action.actionType) {
 
     case ActionTypes.UPDATE:
-      console.log('execute UPDATE action');
+      // console.log('execute UPDATE action');
       PageFlowStore.emitChange();
       break;
 
     default:
-      console.log('do nothing');
+      // console.log('do nothing');
       // do nothing
   }
 

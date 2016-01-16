@@ -1,4 +1,5 @@
 import Model from '~/store/Model';
+import NS from '~/utils/ns';
 
 class AXAPIModel extends Model {
 	setCurrentNode(node) {
@@ -6,9 +7,29 @@ class AXAPIModel extends Model {
 	}
 
 	updateNodeValue(node, value=null) {
+		if (node.indexOf(node, 'root') !== 0 ) {
+			node = 'root.'+ node;
+		}
 		this.storage = {node:node, value:value};
 		this.currentNode = node;
 		// console.log('updated storage', this.storage);
+		// const data = NS.initializeNS(node, value);
+		// console.log(data);
+		// let obj = this.toApiObject();
+		// console.log(obj);
+	}
+
+	toApiObject() {
+		let apiObj = {}, tmpObj = {}, storage = this.storage;
+		// console.log(this.storage);
+		for (var node in storage) {
+			if (storage[node]) {
+				tmpObj = NS.initializeNS(node, this.storage[node]);
+				// console.log(tmpObj);
+				apiObj = NS.merge(apiObj, tmpObj);
+			}			
+		}
+		return apiObj;
 	}
 
 	getAllNodes() {

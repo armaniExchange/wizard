@@ -11,7 +11,7 @@ export default class TextInput extends Widget {
 		} = this.props;
 		
 		return (
-			<TextField {...other}>{children}</TextField>
+			<TextField onChange={this._onAddNode.bind(this)} {...other}>{children}</TextField>
 		);
 	}
 }
