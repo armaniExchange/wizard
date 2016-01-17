@@ -2,8 +2,13 @@ import { Component } from 'react';
 import GlobalConfig from '~/constants/Configs';
 import PageFlowStore from '~/store/PageFlowStore';
 import ApiStore from '~/store/ApiStore';
+import * as Actions from '~/store/actions';
 
 class Page extends Component {
+	constructor(props) {
+		super(props);
+	}
+
 	mixins = [GlobalConfig]
 
 	// static getInitialState() {
@@ -16,8 +21,9 @@ class Page extends Component {
 
 	componentDidMount() {
 		// console.log('componentDidMount');
-		PageFlowStore.addChangeListener(this._onInit);
-		ApiStore.addChangeListener(this._onInit);
+		PageFlowStore.addChangeListener(this._onPageChange);
+		ApiStore.addChangeListener(this._onAPIChange);
+		Actions.updateNodeInfo();
 	}
 
 	componentWillReceiveProps() {
@@ -39,11 +45,16 @@ class Page extends Component {
 
 	componentWillUnmount() {
 		// console.log('componentWillUnmount');	
-	    PageFlowStore.removeChangeListener(this._onInit);
-	    ApiStore.removeChangeListener(this._onInit);
+	    PageFlowStore.removeChangeListener(this._onPageChange);
+	    ApiStore.removeChangeListener(this._onAPIChange);
 	}	
 
-	_onInit() {
+	_onAPIChange() {
+		// console.log('Hi , APi Store Change happened');
+		// console.log(PageFlowStore.getAll());
+	}	
+
+	_onPageChange() {
 		// console.log('Hi , PageFlowStore init');
 		// console.log(PageFlowStore.getAll());
 	}

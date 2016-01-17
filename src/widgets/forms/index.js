@@ -6,6 +6,7 @@ import SelectInput from './SelectInput';
 import TextareaInput from './TextareaInput';
 import TextInput from './TextInput';
 import RaisedButtonWidget from './RaisedButtonWidget';
+import Opacity from './Opacity';
 
 export {
 	CheckboxInput,
@@ -15,5 +16,6 @@ export {
 	SelectInput,
 	TextareaInput,
 	TextInput,
-	RaisedButtonWidget
+	RaisedButtonWidget,
+	Opacity
 };

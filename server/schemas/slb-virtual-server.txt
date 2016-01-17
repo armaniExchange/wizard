@@ -1,0 +1,1108 @@
+{
+    "id":"/axapi/v3/slb/virtual-server/{name}",
+    "type":"object",
+    "node-type":"list",
+    "title":"virtual-server",
+    "description":"Create a Virtual Server",
+    "properties":{
+        "name":{
+            "type":"string",
+            "format":"string-rlx",
+            "minLength":1,
+            "maxLength":127,
+            "description":"SLB Virtual Server Name",
+            "optional":false
+        },
+        "ipv6-address":{
+            "type":"string",
+            "format":"ipv6-address",
+            "modify-not-allowed":1,
+            "not-list":[ "ip-address", "use-if-ip" ],
+            "description":"IPV6 address",
+            "optional":true
+        },
+        "ip-address":{
+            "type":"string",
+            "format":"ipv4-address",
+            "modify-not-allowed":1,
+            "not-list":[ "ipv6-address", "use-if-ip" ],
+            "description":"IP Address",
+            "optional":true
+        },
+        "netmask":{
+            "type":"string",
+            "format":"ipv4-netmask-brief",
+            "modify-not-allowed":1,
+            "description":"IP subnet mask",
+            "optional":true
+        },
+        "ipv6-acl":{
+            "type":"string",
+            "format":"string",
+            "minLength":1,
+            "maxLength":31,
+            "modify-not-allowed":1,
+            "$ref":"/axapi/v3/ipv6/access-list",
+            "description":"ipv6 acl name",
+            "optional":true
+        },
+        "acl-id":{
+            "type":"number",
+            "format":"number",
+            "minimum":1,
+            "maximum":199,
+            "modify-not-allowed":1,
+            "$ref":"/axapi/v3/access-list/standard",
+            "description":"acl id",
+            "optional":true
+        },
+        "acl-name":{
+            "type":"string",
+            "format":"string",
+            "minLength":1,
+            "maxLength":16,
+            "modify-not-allowed":1,
+            "$ref":"/axapi/v3/ip/access-list",
+            "description":"Access List name (IPv4 Access List Name)",
+            "optional":true
+        },
+        "use-if-ip":{
+            "type":"number",
+            "format":"flag",
+            "plat-pos-list":["soft-ax"],
+            "default":0,
+            "not-list":[ "ipv6-address", "ip-address" ],
+            "description":"Use Interface IP",
+            "optional":true
+        },
+        "ethernet":{
+            "type":"number",
+            "format":"interface",
+            "plat-pos-list":["soft-ax"],
+            "description":"Ethernet interface",
+            "optional":true
+        },
+        "description":{
+            "type":"string",
+            "format":"string-rlx",
+            "minLength":1,
+            "maxLength":63,
+            "description":"Create a description for VIP",
+            "optional":true
+        },
+        "enable-disable-action":{
+            "type":"string",
+            "format":"enum",
+            "default":"enable",
+            "description":"'enable': Enable Virtual Server (default); 'disable': Disable Virtual Server; 'disable-when-all-ports-down': Disable Virtual Server when all member ports are down; 'disable-when-any-port-down': Disable Virtual Server when any member port is down; ",
+            "enum":[
+                "enable",
+                "disable",
+                "disable-when-all-ports-down",
+                "disable-when-any-port-down"
+            ],
+            "optional":true
+        },
+        "redistribution-flagged":{
+            "type":"number",
+            "format":"flag",
+            "default":0,
+            "description":"Flag VIP for special redistribution handling",
+            "optional":true
+        },
+        "arp-disable":{
+            "type":"number",
+            "format":"flag",
+            "default":0,
+            "description":"Disable Respond to Virtual Server ARP request",
+            "optional":true
+        },
+        "template-policy":{
+            "type":"string",
+            "format":"string-rlx",
+            "minLength":1,
+            "maxLength":63,
+            "$ref":"/axapi/v3/slb/template/policy",
+            "description":"Policy template (Policy template name)",
+            "optional":true
+        },
+        "template-virtual-server":{
+            "type":"string",
+            "format":"string",
+            "minLength":1,
+            "maxLength":63,
+            "$ref":"/axapi/v3/slb/template/virtual-server",
+            "description":"Virtual server template (Virtual server template name)",
+            "optional":true
+        },
+        "template-logging":{
+            "type":"string",
+            "format":"string",
+            "minLength":1,
+            "maxLength":63,
+            "$ref":"/axapi/v3/ip/nat/template/logging",
+            "description":"NAT Logging template (NAT Logging template name)",
+            "optional":true
+        },
+        "template-scaleout":{
+            "type":"string",
+            "format":"string",
+            "minLength":1,
+            "maxLength":63,
+            "description":"Scaleout template (Scaleout template name)",
+            "optional":true
+        },
+        "stats-data-action":{
+            "type":"string",
+            "format":"enum",
+            "default":"stats-data-enable",
+            "description":"'stats-data-enable': Enable statistical data collection for virtual server; 'stats-data-disable': Disable statistical data collection for virtual server; ",
+            "enum":[
+                "stats-data-enable",
+                "stats-data-disable"
+            ],
+            "optional":true
+        },
+        "extended-stats":{
+            "type":"number",
+            "format":"flag",
+            "default":0,
+            "description":"Enable extended statistics on virtual server",
+            "optional":true
+        },
+        "vrid":{
+            "type":"number",
+            "format":"number",
+            "minimum":1,
+            "maximum":31,
+            "description":"Join a vrrp group (Specify ha VRRP-A vrid)",
+            "optional":true
+        },
+        "uuid":{
+            "type":"string",
+            "format":"string",
+            "minLength":1,
+            "maxLength":64,
+            "modify-not-allowed":1,
+            "description":"uuid of the object",
+            "optional":true
+        },
+        "user-tag":{
+            "type":"string",
+            "format":"string-rlx",
+            "minLength":1,
+            "maxLength":127,
+            "description":"Customized tag",
+            "optional":true
+        },
+        "port-list":{
+            "type":"array",
+            "minItems":1,
+            "items":{
+                "type":"port"
+            },
+            "uniqueItems":true,
+            "$ref":"/axapi/v3/slb/virtual-server/{name}/port/{port-number}+{protocol}",
+            "array":[
+                {
+                    "properties":{
+                        "port-number":{
+                            "type":"number",
+                            "format":"number",
+                            "minimum":0,
+                            "maximum":65534,
+                            "description":"Port",
+                            "optional":false
+                        },
+                        "protocol":{
+                            "type":"string",
+                            "format":"enum",
+                            "description":"'tcp': TCP LB service; 'udp': UDP Port; 'others': for no tcp/udp protocol, do IP load balancing; 'diameter': diameter port; 'dns-tcp': DNS service over TCP; 'dns-udp': DNS service over UDP; 'fast-http': Fast HTTP Port; 'fix': FIX Port; 'ftp': File Transfer Protocol Port; 'ftp-proxy': ftp proxy port; 'http': HTTP Port; 'https': HTTPS port; 'imap': imap proxy port; 'mlb': Message based load balancing; 'mms': Microsoft Multimedia Service Port; 'mysql': mssql port; 'mssql': mssql; 'pop3': pop3 proxy port; 'radius': RADIUS Port; 'rtsp': Real Time Streaming Protocol Port; 'sip': Session initiation protocol over UDP; 'sip-tcp': Session initiation protocol over TCP; 'sips': Session initiation protocol over TLS; 'smpp-tcp': SMPP service over TCP; 'spdy': spdy port; 'spdys': spdys port; 'smtp': SMTP Port; 'ssl-proxy': Generic SSL proxy; 'ssli': SSL insight; 'tcp-proxy': Generic TCP proxy; 'tftp': TFTP Port; ",
+                            "enum":[
+                                "tcp",
+                                "udp",
+                                "others",
+                                "diameter",
+                                "dns-tcp",
+                                "dns-udp",
+                                "fast-http",
+                                "fix",
+                                "ftp",
+                                "ftp-proxy",
+                                "http",
+                                "https",
+                                "imap",
+                                "mlb",
+                                "mms",
+                                "mysql",
+                                "mssql",
+                                "pop3",
+                                "radius",
+                                "rtsp",
+                                "sip",
+                                "sip-tcp",
+                                "sips",
+                                "smpp-tcp",
+                                "spdy",
+                                "spdys",
+                                "smtp",
+                                "ssl-proxy",
+                                "ssli",
+                                "tcp-proxy",
+                                "tftp"
+                            ],
+                            "optional":false
+                        },
+                        "range":{
+                            "type":"number",
+                            "format":"number",
+                            "minimum":0,
+                            "maximum":254,
+                            "default":0,
+                            "modify-not-allowed":1,
+                            "not":"alternate-port",
+                            "description":"Virtual Port range (Virtual Port range value)",
+                            "optional":true
+                        },
+                        "alternate-port":{
+                            "type":"number",
+                            "format":"flag",
+                            "default":0,
+                            "modify-not-allowed":1,
+                            "not":"range",
+                            "description":"Alternate Virtual Port",
+                            "optional":true
+                        },
+                        "name":{
+                            "type":"string",
+                            "format":"string-rlx",
+                            "minLength":1,
+                            "maxLength":127,
+                            "description":"SLB Virtual Service Name",
+                            "optional":true
+                        },
+                        "conn-limit":{
+                            "type":"number",
+                            "format":"number",
+                            "minimum":1,
+                            "maximum":8000000,
+                            "default":8000000,
+                            "description":"Connection Limit",
+                            "optional":true
+                        },
+                        "reset":{
+                            "type":"number",
+                            "format":"flag",
+                            "default":0,
+                            "description":"Send client reset when connection number over limit",
+                            "optional":true
+                        },
+                        "no-logging":{
+                            "type":"number",
+                            "format":"flag",
+                            "default":0,
+                            "description":"Do not log connection over limit event",
+                            "optional":true
+                        },
+                        "use-alternate-port":{
+                            "type":"number",
+                            "format":"flag",
+                            "default":0,
+                            "description":"Use alternate virtual port",
+                            "optional":true
+                        },
+                        "alternate-port-number":{
+                            "type":"number",
+                            "format":"number",
+                            "minimum":0,
+                            "maximum":65534,
+                            "description":"Virtual Port",
+                            "optional":true
+                        },
+                        "alt-protocol1":{
+                            "type":"string",
+                            "format":"enum",
+                            "description":"'http': HTTP Port; ",
+                            "enum":[
+                                "http"
+                            ],
+                            "optional":true
+                        },
+                        "serv-sel-fail":{
+                            "type":"number",
+                            "format":"flag",
+                            "default":0,
+                            "description":"Use alternate virtual port when server selection failure",
+                            "optional":true
+                        },
+                        "when-down":{
+                            "type":"number",
+                            "format":"flag",
+                            "default":0,
+                            "description":"Use alternate virtual port when down",
+                            "optional":true
+                        },
+                        "alt-protocol2":{
+                            "type":"string",
+                            "format":"enum",
+                            "description":"'tcp': TCP LB service; ",
+                            "enum":[
+                                "tcp"
+                            ],
+                            "optional":true
+                        },
+                        "req-fail":{
+                            "type":"number",
+                            "format":"flag",
+                            "default":0,
+                            "description":"Use alternate virtual port when L7 request fail",
+                            "optional":true
+                        },
+                        "when-down-protocol2":{
+                            "type":"number",
+                            "format":"flag",
+                            "default":0,
+                            "description":"Use alternate virtual port when down",
+                            "optional":true
+                        },
+                        "action":{
+                            "type":"string",
+                            "format":"enum",
+                            "default":"enable",
+                            "description":"'enable': Enable; 'disable': Disable; ",
+                            "enum":[
+                                "enable",
+                                "disable"
+                            ],
+                            "optional":true
+                        },
+                        "def-selection-if-pref-failed":{
+                            "type":"string",
+                            "format":"enum",
+                            "default":"def-selection-if-pref-failed",
+                            "description":"'def-selection-if-pref-failed': Use default server selection method if prefer method failed; 'def-selection-if-pref-failed-disable': Stop using default server selection method if prefer method failed; ",
+                            "enum":[
+                                "def-selection-if-pref-failed",
+                                "def-selection-if-pref-failed-disable"
+                            ],
+                            "optional":true
+                        },
+                        "ha-conn-mirror":{
+                            "type":"number",
+                            "format":"flag",
+                            "default":0,
+                            "description":"Enable for HA Conn sync",
+                            "optional":true
+                        },
+                        "skip-rev-hash":{
+                            "type":"number",
+                            "format":"flag",
+                            "default":0,
+                            "description":"Skip rev tuple hash insertion",
+                            "optional":true
+                        },
+                        "message-switching":{
+                            "type":"number",
+                            "format":"flag",
+                            "default":0,
+                            "description":"Message switching",
+                            "optional":true
+                        },
+                        "force-routing-mode":{
+                            "type":"number",
+                            "format":"flag",
+                            "default":0,
+                            "description":"Force routing mode",
+                            "optional":true
+                        },
+                        "reset-on-server-selection-fail":{
+                            "type":"number",
+                            "format":"flag",
+                            "default":0,
+                            "description":"Send client reset when server selection fails",
+                            "optional":true
+                        },
+                        "clientip-sticky-nat":{
+                            "type":"number",
+                            "format":"flag",
+                            "default":0,
+                            "description":"Prefer to use same source NAT address for a client",
+                            "optional":true
+                        },
+                        "extended-stats":{
+                            "type":"number",
+                            "format":"flag",
+                            "default":0,
+                            "description":"Enable extended statistics on virtual port",
+                            "optional":true
+                        },
+                        "gslb-enable":{
+                            "type":"number",
+                            "format":"flag",
+                            "plat-neg-list":["fireeye"],
+                            "default":0,
+                            "description":"Enable Global Server Load Balancing",
+                            "optional":true
+                        },
+                        "view":{
+                            "type":"number",
+                            "format":"number",
+                            "minimum":1,
+                            "maximum":31,
+                            "description":"Specify a GSLB View (ID)",
+                            "optional":true
+                        },
+                        "snat-on-vip":{
+                            "type":"number",
+                            "format":"flag",
+                            "default":0,
+                            "description":"Enable source NAT traffic against VIP",
+                            "optional":true
+                        },
+                        "stats-data-action":{
+                            "type":"string",
+                            "format":"enum",
+                            "default":"stats-data-enable",
+                            "description":"'stats-data-enable': Enable statistical data collection for virtual port; 'stats-data-disable': Disable statistical data collection for virtual port; ",
+                            "enum":[
+                                "stats-data-enable",
+                                "stats-data-disable"
+                            ],
+                            "optional":true
+                        },
+                        "syn-cookie":{
+                            "type":"number",
+                            "format":"flag",
+                            "default":0,
+                            "description":"Enable syn-cookie",
+                            "optional":true
+                        },
+                        "expand":{
+                            "type":"number",
+                            "format":"flag",
+                            "default":0,
+                            "description":"expand syn-cookie with timestamp and wscale",
+                            "optional":true
+                        },
+                        "acl-id-list":{
+                            "type":"array",
+                            "minItems":1,
+                            "items":{
+                                "type":"object"
+                            },
+                            "uniqueItems":true,
+                            "array":[
+                                {
+                                    "properties":{
+                                        "acl-id":{
+                                            "type":"number",
+                                            "format":"number",
+                                            "minimum":1,
+                                            "maximum":199,
+                                            "$ref":"/axapi/v3/access-list/standard",
+                                            "description":"ACL id VPORT"
+                                        },
+                                        "acl-id-src-nat-pool":{
+                                            "type":"string",
+                                            "format":"string",
+                                            "minLength":1,
+                                            "maxLength":128,
+                                            "$ref":"/axapi/v3/ip/nat/pool",
+                                            "description":"Policy based Source NAT (NAT Pool or Pool Group)"
+                                        },
+                                        "acl-id-seq-num":{
+                                            "type":"number",
+                                            "format":"number",
+                                            "minimum":1,
+                                            "maximum":32,
+                                            "description":"Specify ACL precedence (sequence-number)"
+                                        },
+                                        "optional":true
+                                    }
+                                }
+                            ]
+                        },
+                        "acl-name-list":{
+                            "type":"array",
+                            "minItems":1,
+                            "items":{
+                                "type":"object"
+                            },
+                            "uniqueItems":true,
+                            "array":[
+                                {
+                                    "properties":{
+                                        "acl-name":{
+                                            "type":"string",
+                                            "format":"string",
+                                            "minLength":1,
+                                            "maxLength":16,
+                                            "$ref":"/axapi/v3/ip/access-list",
+                                            "description":"Apply an access list name (Named Access List)"
+                                        },
+                                        "acl-name-src-nat-pool":{
+                                            "type":"string",
+                                            "format":"string",
+                                            "minLength":1,
+                                            "maxLength":128,
+                                            "$ref":"/axapi/v3/ip/nat/pool",
+                                            "description":"Policy based Source NAT (NAT Pool or Pool Group)"
+                                        },
+                                        "acl-name-seq-num":{
+                                            "type":"number",
+                                            "format":"number",
+                                            "minimum":1,
+                                            "maximum":32,
+                                            "description":"Specify ACL precedence (sequence-number)"
+                                        },
+                                        "optional":true
+                                    }
+                                }
+                            ]
+                        },
+                        "aflex-scripts":{
+                            "type":"array",
+                            "minItems":1,
+                            "items":{
+                                "type":"object"
+                            },
+                            "uniqueItems":true,
+                            "array":[
+                                {
+                                    "properties":{
+                                        "aflex":{
+                                            "type":"string",
+                                            "format":"string-rlx",
+                                            "minLength":1,
+                                            "maxLength":63,
+                                            "description":"Bind aFleX Script to the Virtual Port (aFleX Script Name)"
+                                        },
+                                        "optional":true
+                                    }
+                                }
+                            ]
+                        },
+                        "no-auto-up-on-aflex":{
+                            "type":"number",
+                            "format":"flag",
+                            "default":0,
+                            "description":"Don't automatically mark vport up when aFleX is bound",
+                            "optional":true
+                        },
+                        "scaleout-bucket-count":{
+                            "type":"number",
+                            "format":"number",
+                            "minimum":1,
+                            "maximum":256,
+                            "default":32,
+                            "description":"Number of traffic buckets",
+                            "optional":true
+                        },
+                        "scaleout-device-group":{
+                            "type":"number",
+                            "format":"number",
+                            "minimum":1,
+                            "maximum":16,
+                            "description":"Device group id",
+                            "optional":true
+                        },
+                        "pool":{
+                            "type":"string",
+                            "format":"string",
+                            "minLength":1,
+                            "maxLength":128,
+                            "$ref":"/axapi/v3/ip/nat/pool",
+                            "description":"Specify NAT pool or pool group",
+                            "optional":true
+                        },
+                        "auto":{
+                            "type":"number",
+                            "format":"flag",
+                            "default":0,
+                            "description":"Configure auto NAT for the vport",
+                            "optional":true
+                        },
+                        "precedence":{
+                            "type":"number",
+                            "format":"flag",
+                            "default":0,
+                            "description":"Set auto NAT pool as higher precedence for source NAT",
+                            "optional":true
+                        },
+                        "service-group":{
+                            "type":"string",
+                            "format":"string-rlx",
+                            "minLength":1,
+                            "maxLength":128,
+                            "$ref":"/axapi/v3/slb/service-group",
+                            "description":"Bind a Service Group to this Virtual Server (Service Group Name)",
+                            "optional":true
+                        },
+                        "ipinip":{
+                            "type":"number",
+                            "format":"flag",
+                            "default":0,
+                            "description":"Enable IP in IP",
+                            "optional":true
+                        },
+                        "rtp-sip-call-id-match":{
+                            "type":"number",
+                            "format":"flag",
+                            "default":0,
+                            "description":"rtp traffic try to match the real server of sip smp call-id session",
+                            "optional":true
+                        },
+                        "use-rcv-hop-for-resp":{
+                            "type":"number",
+                            "format":"flag",
+                            "default":0,
+                            "description":"Use receive hop for response to client(For packets on default-vlan, also config \"vlan-global enable-def-vlan-l2-forwarding\".)",
+                            "optional":true
+                        },
+                        "persist-type":{
+                            "type":"string",
+                            "format":"enum",
+                            "description":"'src-dst-ip-swap-persist': Create persist session after source IP and destination IP swap; 'use-src-ip-for-dst-persist': Use the source IP to create a destination persist session; 'use-dst-ip-for-src-persist': Use the destination IP to create source IP persist session; ",
+                            "enum":[
+                                "src-dst-ip-swap-persist",
+                                "use-src-ip-for-dst-persist",
+                                "use-dst-ip-for-src-persist"
+                            ],
+                            "optional":true
+                        },
+                        "template-sip":{
+                            "type":"string",
+                            "format":"string-rlx",
+                            "minLength":1,
+                            "maxLength":63,
+                            "$ref":"/axapi/v3/slb/template/sip",
+                            "description":"SIP template",
+                            "optional":true
+                        },
+                        "template-smpp":{
+                            "type":"string",
+                            "format":"string-rlx",
+                            "minLength":1,
+                            "maxLength":63,
+                            "$ref":"/axapi/v3/slb/template/smpp",
+                            "description":"SMPP template",
+                            "optional":true
+                        },
+                        "template-dblb":{
+                            "type":"string",
+                            "format":"string-rlx",
+                            "minLength":1,
+                            "maxLength":63,
+                            "$ref":"/axapi/v3/slb/template/dblb",
+                            "description":"DBLB Template (DBLB template name)",
+                            "optional":true
+                        },
+                        "template-connection-reuse":{
+                            "type":"string",
+                            "format":"string-rlx",
+                            "minLength":1,
+                            "maxLength":128,
+                            "$ref":"/axapi/v3/slb/template/connection-reuse",
+                            "description":"Connection Reuse Template (Connection Reuse Template Name)",
+                            "optional":true
+                        },
+                        "template-dns":{
+                            "type":"string",
+                            "format":"string-rlx",
+                            "minLength":1,
+                            "maxLength":63,
+                            "$ref":"/axapi/v3/slb/template/dns",
+                            "description":"DNS template (DNS template name)",
+                            "optional":true
+                        },
+                        "template-policy":{
+                            "type":"string",
+                            "format":"string-rlx",
+                            "minLength":1,
+                            "maxLength":63,
+                            "$ref":"/axapi/v3/slb/template/policy",
+                            "description":"Policy Template (Policy template name)",
+                            "optional":true
+                        },
+                        "template-dynamic-service":{
+                            "type":"string",
+                            "format":"string-rlx",
+                            "minLength":1,
+                            "maxLength":63,
+                            "$ref":"/axapi/v3/slb/template/dynamic-service",
+                            "description":"Dynamic Service Template (dynamic-service template name)",
+                            "optional":true
+                        },
+                        "template-persist-source-ip":{
+                            "type":"string",
+                            "format":"string",
+                            "minLength":1,
+                            "maxLength":128,
+                            "$ref":"/axapi/v3/slb/template/persist/source-ip",
+                            "description":"Source IP persistence (Source IP persistence template name)",
+                            "optional":true
+                        },
+                        "template-persist-destination-ip":{
+                            "type":"string",
+                            "format":"string",
+                            "minLength":1,
+                            "maxLength":128,
+                            "$ref":"/axapi/v3/slb/template/persist/destination-ip",
+                            "description":"Destination IP persistence (Destination IP persistence template name)",
+                            "optional":true
+                        },
+                        "template-persist-ssl-sid":{
+                            "type":"string",
+                            "format":"string",
+                            "minLength":1,
+                            "maxLength":128,
+                            "$ref":"/axapi/v3/slb/template/persist/ssl-sid",
+                            "description":"SSL session ID persistence (Source IP Persistence Config name)",
+                            "optional":true
+                        },
+                        "template-persist-cookie":{
+                            "type":"string",
+                            "format":"string-rlx",
+                            "minLength":1,
+                            "maxLength":128,
+                            "$ref":"/axapi/v3/slb/template/persist/cookie",
+                            "description":"Cookie persistence (Cookie persistence template name)",
+                            "optional":true
+                        },
+                        "template-imap-pop3":{
+                            "type":"string",
+                            "format":"string-rlx",
+                            "minLength":1,
+                            "maxLength":63,
+                            "$ref":"/axapi/v3/slb/template/imap-pop3",
+                            "description":"IMAP/POP3 Template (IMAP/POP3 Config Name)",
+                            "optional":true
+                        },
+                        "template-smtp":{
+                            "type":"string",
+                            "format":"string-rlx",
+                            "minLength":1,
+                            "maxLength":63,
+                            "$ref":"/axapi/v3/slb/template/smtp",
+                            "description":"SMTP Template (SMTP Config Name)",
+                            "optional":true
+                        },
+                        "template-http":{
+                            "type":"string",
+                            "format":"string-rlx",
+                            "minLength":1,
+                            "maxLength":63,
+                            "$ref":"/axapi/v3/slb/template/http",
+                            "description":"HTTP Template (HTTP Config Name)",
+                            "optional":true
+                        },
+                        "template-http-policy":{
+                            "type":"string",
+                            "format":"string",
+                            "minLength":1,
+                            "maxLength":63,
+                            "$ref":"/axapi/v3/slb/template/http-policy",
+                            "description":"http-policy template (http-policy template name)",
+                            "optional":true
+                        },
+                        "redirect-to-https":{
+                            "type":"number",
+                            "format":"flag",
+                            "default":0,
+                            "description":"Redirect HTTP to HTTPS",
+                            "optional":true
+                        },
+                        "template-external-service":{
+                            "type":"string",
+                            "format":"string-rlx",
+                            "minLength":1,
+                            "maxLength":63,
+                            "$ref":"/axapi/v3/slb/template/external-service",
+                            "description":"External service template (external-service template name)",
+                            "optional":true
+                        },
+                        "template-reqmod-icap":{
+                            "type":"string",
+                            "format":"string-rlx",
+                            "minLength":1,
+                            "maxLength":63,
+                            "$ref":"/axapi/v3/slb/template/reqmod-icap",
+                            "description":"ICAP reqmod template (reqmod-icap template name)",
+                            "optional":true
+                        },
+                        "template-respmod-icap":{
+                            "type":"string",
+                            "format":"string-rlx",
+                            "minLength":1,
+                            "maxLength":63,
+                            "$ref":"/axapi/v3/slb/template/respmod-icap",
+                            "description":"ICAP respmod service template (respmod-icap template name)",
+                            "optional":true
+                        },
+                        "template-server-ssl":{
+                            "type":"string",
+                            "format":"string-rlx",
+                            "minLength":1,
+                            "maxLength":63,
+                            "$ref":"/axapi/v3/slb/template/server-ssl",
+                            "description":"Server Side SSL Template (Server SSL Name)",
+                            "optional":true
+                        },
+                        "template-client-ssl":{
+                            "type":"string",
+                            "format":"string-rlx",
+                            "minLength":1,
+                            "maxLength":63,
+                            "$ref":"/axapi/v3/slb/template/client-ssl",
+                            "description":"Client SSL Template (Client SSL Config Name)",
+                            "optional":true
+                        },
+                        "template-udp":{
+                            "type":"string",
+                            "format":"string-rlx",
+                            "minLength":1,
+                            "maxLength":63,
+                            "default":"default",
+                            "$ref":"/axapi/v3/slb/template/udp",
+                            "description":"L4 UDP Template (UDP Config Name)",
+                            "optional":true
+                        },
+                        "template-tcp":{
+                            "type":"string",
+                            "format":"string-rlx",
+                            "minLength":1,
+                            "maxLength":63,
+                            "default":"default",
+                            "$ref":"/axapi/v3/slb/template/tcp",
+                            "description":"L4 TCP Template (TCP Config Name)",
+                            "optional":true
+                        },
+                        "template-virtual-port":{
+                            "type":"string",
+                            "format":"string-rlx",
+                            "minLength":1,
+                            "maxLength":63,
+                            "default":"default",
+                            "$ref":"/axapi/v3/slb/template/virtual-port",
+                            "description":"Virtual port template (Virtual port template name)",
+                            "optional":true
+                        },
+                        "template-ftp":{
+                            "type":"string",
+                            "format":"string-rlx",
+                            "minLength":1,
+                            "maxLength":31,
+                            "$ref":"/axapi/v3/slb/template/ftp",
+                            "description":"FTP port template (Ftp template name)",
+                            "optional":true
+                        },
+                        "template-diameter":{
+                            "type":"string",
+                            "format":"string-rlx",
+                            "minLength":1,
+                            "maxLength":63,
+                            "$ref":"/axapi/v3/slb/template/diameter",
+                            "description":"Diameter Template (diameter template name)",
+                            "optional":true
+                        },
+                        "template-cache":{
+                            "type":"string",
+                            "format":"string-rlx",
+                            "minLength":1,
+                            "maxLength":63,
+                            "$ref":"/axapi/v3/slb/template/cache",
+                            "description":"RAM caching template (Cache Template Name)",
+                            "optional":true
+                        },
+                        "template-fix":{
+                            "type":"string",
+                            "format":"string-rlx",
+                            "minLength":1,
+                            "maxLength":63,
+                            "$ref":"/axapi/v3/slb/template/fix",
+                            "description":"FIX template (FIX Template Name)",
+                            "optional":true
+                        },
+                        "waf-template":{
+                            "type":"string",
+                            "format":"string-rlx",
+                            "plat-neg-list":["fireeye", "ruijie"],
+                            "minLength":1,
+                            "maxLength":63,
+                            "$ref":"/axapi/v3/waf/template",
+                            "description":"WAF template (WAF Template Name)",
+                            "optional":true
+                        },
+                        "template-ssli":{
+                            "type":"string",
+                            "format":"string-rlx",
+                            "minLength":1,
+                            "maxLength":63,
+                            "$ref":"/axapi/v3/slb/template/ssli",
+                            "description":"SSLi template (SSLi Template Name)",
+                            "optional":true
+                        },
+                        "template-tcp-proxy-client":{
+                            "type":"string",
+                            "format":"string-rlx",
+                            "minLength":1,
+                            "maxLength":63,
+                            "$ref":"/axapi/v3/slb/template/tcp-proxy",
+                            "description":"TCP Proxy Config Client (TCP Proxy Config name)",
+                            "optional":true
+                        },
+                        "template-tcp-proxy-server":{
+                            "type":"string",
+                            "format":"string-rlx",
+                            "minLength":1,
+                            "maxLength":63,
+                            "$ref":"/axapi/v3/slb/template/tcp-proxy",
+                            "description":"TCP Proxy Config Server (TCP Proxy Config name)",
+                            "optional":true
+                        },
+                        "template-tcp-proxy":{
+                            "type":"string",
+                            "format":"string-rlx",
+                            "minLength":1,
+                            "maxLength":63,
+                            "$ref":"/axapi/v3/slb/template/tcp-proxy",
+                            "description":"TCP Proxy Template Name",
+                            "optional":true
+                        },
+                        "use-default-if-no-server":{
+                            "type":"number",
+                            "format":"flag",
+                            "default":0,
+                            "description":"Use default forwarding if server selection failed",
+                            "optional":true
+                        },
+                        "template-scaleout":{
+                            "type":"string",
+                            "format":"string",
+                            "minLength":1,
+                            "maxLength":63,
+                            "description":"Scaleout template (Scaleout template name)",
+                            "optional":true
+                        },
+                        "no-dest-nat":{
+                            "type":"number",
+                            "format":"flag",
+                            "default":0,
+                            "description":"Disable destination NAT, this option only supports in wildcard VIP or when a connection is operated in SSLi + EP mode",
+                            "optional":true
+                        },
+                        "port-translation":{
+                            "type":"number",
+                            "format":"flag",
+                            "default":0,
+                            "description":"Enable port translation under no-dest-nat",
+                            "optional":true
+                        },
+                        "l7-hardware-assist":{
+                            "type":"number",
+                            "format":"flag",
+                            "plat-neg-list":["non-fpga", "soft-ax"],
+                            "default":0,
+                            "description":"FPGA assist L7 packet parsing",
+                            "optional":true
+                        },
+                        "auth-cfg":{
+                            "type":"object",
+                            "properties":{
+                                "aaa-policy":{
+                                    "type":"string",
+                                    "format":"string",
+                                    "plat-neg-list":["fireeye", "ruijie"],
+                                    "minLength":1,
+                                    "maxLength":63,
+                                    "description":"Specify AAA policy name to bind to the virtual port"
+                                }
+                            }
+                        },
+                        "uuid":{
+                            "type":"string",
+                            "format":"string",
+                            "minLength":1,
+                            "maxLength":64,
+                            "modify-not-allowed":1,
+                            "description":"uuid of the object",
+                            "optional":true
+                        },
+                        "user-tag":{
+                            "type":"string",
+                            "format":"string-rlx",
+                            "minLength":1,
+                            "maxLength":127,
+                            "description":"Customized tag",
+                            "optional":true
+                        },
+                        "sampling-enable":{
+                            "type":"array",
+                            "minItems":1,
+                            "items":{
+                                "type":"object"
+                            },
+                            "uniqueItems":true,
+                            "array":[
+                                {
+                                    "properties":{
+                                        "counters1":{
+                                            "type":"string",
+                                            "format":"enum",
+                                            "description":"'all': all; 'curr_conn': Current connections; 'total_l4_conn': Total L4 connections; 'total_l7_conn': Total L7 connections; 'total_tcp_conn': Total TCP connections; 'total_conn': Total connections; 'total_fwd_bytes': Total forward bytes; 'total_fwd_pkts': Total forward packets; 'total_rev_bytes': Total reverse bytes; 'total_rev_pkts': Total reverse packets; 'total_dns_pkts': Total DNS packets; 'total_mf_dns_pkts': Total MF DNS packets; 'es_total_failure_actions': Total failure actions; 'compression_bytes_before': Data into compression engine; 'compression_bytes_after': Data out of compression engine; 'compression_hit': Number of requests compressed; 'compression_miss': Number of requests NOT compressed; 'compression_miss_no_client': Compression miss no client; 'compression_miss_template_exclusion': Compression miss template exclusion; 'curr_req': Current requests; 'total_req': Total requests; 'total_req_succ': Total successful requests; 'peak_conn': Peak connections; 'curr_conn_rate': Current connection rate; 'last_rsp_time': Last response time; 'fastest_rsp_time': Fastest response time; 'slowest_rsp_time': Slowest response time; 'loc_permit': Permit number; 'loc_deny': Deny number; 'loc_conn': Connection number; 'curr_ssl_conn': Current SSL connections; 'total_ssl_conn': Total SSL connections; ",
+                                            "enum":[
+                                                "all",
+                                                "curr_conn",
+                                                "total_l4_conn",
+                                                "total_l7_conn",
+                                                "total_tcp_conn",
+                                                "total_conn",
+                                                "total_fwd_bytes",
+                                                "total_fwd_pkts",
+                                                "total_rev_bytes",
+                                                "total_rev_pkts",
+                                                "total_dns_pkts",
+                                                "total_mf_dns_pkts",
+                                                "es_total_failure_actions",
+                                                "compression_bytes_before",
+                                                "compression_bytes_after",
+                                                "compression_hit",
+                                                "compression_miss",
+                                                "compression_miss_no_client",
+                                                "compression_miss_template_exclusion",
+                                                "curr_req",
+                                                "total_req",
+                                                "total_req_succ",
+                                                "peak_conn",
+                                                "curr_conn_rate",
+                                                "last_rsp_time",
+                                                "fastest_rsp_time",
+                                                "slowest_rsp_time",
+                                                "loc_permit",
+                                                "loc_deny",
+                                                "loc_conn",
+                                                "curr_ssl_conn",
+                                                "total_ssl_conn"
+                                            ]
+                                        },
+                                        "optional":true
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "required":[
+                        "port-number",
+                        "protocol"
+                    ]
+                }
+            ]
+        }
+    },
+    "object-keys":[
+        "name"
+    ],
+    "required":[
+        "name"
+    ]
+}

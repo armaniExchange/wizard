@@ -9,7 +9,9 @@ import * as Actions from '~/store/actions';
 export default class Widget extends Component {
 	constructor(props) {
 		super(props);
-		this.state = {};
+		// this.state = {nodeInfo:{}};
+		this.onAPIChange = ::this._onAPIChange;
+		this.onPageChange = ::this._onPageChange;
 	}
 
 	static propTypes = {
@@ -18,27 +20,46 @@ export default class Widget extends Component {
 		model: React.PropTypes.string
 	}
 
+	componentWillMount() {
+		// console.log('componentDidMount');
+		if (this.props.hasOwnProperty('model')) {
+			// console.log(this.props.model);
+			Actions.updateNode(this.props.model);
+		}
+	}
+
 	componentDidMount() {
 		// console.log('componentDidMount');
-		PageFlowStore.addChangeListener(this._onPageLayoutChange);
-		ApiStore.addChangeListener(this._onWidgetChange);
+		PageFlowStore.addChangeListener(this.onPageChange);
+		ApiStore.addChangeListener(this.onAPIChange);
 	}
 
 	componentWillUnmount() {
 		// console.log('componentWillUnmount');	
 
-	    PageFlowStore.removeChangeListener(this._onPageLayoutChange);
-	    ApiStore.removeChangeListener(this._onWidgetChange);
+	    PageFlowStore.removeChangeListener(this.onPageChange);
+	    ApiStore.removeChangeListener(this.onAPIChange);
 	}	
 
-	_onPageLayoutChange() {
+	_onPageChange() {
 		// console.log('Hi Widget , Page Change Happened');
 		// console.log(PageFlowStore.getAll());
 	}
 
-	_onWidgetChange() {
+	_onAPIChange() {
+		// console.log('Hi , APi Store Change happened', this);
+		if (this.props.hasOwnProperty('model')) {
+			// console.log(this.props.model);
+			let nodeInfo = ApiStore.getNodeInfo(this.props.model);
+			if (nodeInfo) {
+				// console.log(nodeInfo);
+				this.setState({nodeInfo:nodeInfo});
+			}
+			// console.log(this.state());
+		}
 		// console.log('Hi Widget, Change happened');
 		// console.log(PageFlowStore.getAll());
+
 	}
 
 	prepareClasses() {
@@ -57,7 +78,7 @@ export default class Widget extends Component {
 		} else {
 			// console.log('default widget change triggled ');
 			if (this.props.hasOwnProperty('model')) {
-				Actions.addNode(this.props.model, e.target.value);
+				Actions.updateNode(this.props.model, e.target.value);
 			    this.setState(ApiStore.getAllNodes());
 			    // console.log(this.state);
 			}

@@ -2,14 +2,19 @@ import Model from '~/store/Model';
 import NS from '~/utils/ns';
 
 class AXAPIModel extends Model {
+	constructor(props) {
+		super(props);
+		this._nodeInfo = {};
+	}
+
 	setCurrentNode(node) {
 		this.currentNode = node;
 	}
 
 	updateNodeValue(node, value=null) {
-		if (node.indexOf(node, 'root') !== 0 ) {
-			node = 'root.'+ node;
-		}
+		// if (node.indexOf(node, 'root') !== 0 ) {
+		// 	node = 'root.'+ node;
+		// }
 		this.storage = {node:node, value:value};
 		this.currentNode = node;
 		// console.log('updated storage', this.storage);
@@ -69,6 +74,59 @@ class AXAPIModel extends Model {
 		 * }, }
 		 */
 		return {};
+	}
+
+	getNodeInfo(node=null) {
+		// console.log('get info', node);
+		let nodeInfo = this._nodeInfo;
+		// console.log(nodeInfo);
+		if (node && nodeInfo.hasOwnProperty(node)) {
+			// console.log('here');
+			return nodeInfo[node];
+		} else {
+			console.log('get all node info:model');
+			return nodeInfo;
+		}
+	} 
+
+	// only call once on one page
+	updateNodeInfo(callback,binder) {
+		if (this._nodeInfo.length) {
+			//this._nodeInfo = {};
+			// console.log(this._nodeInfo);
+			return ;
+		}
+		// console.log('updated--- node info');
+
+		// let keys = Object.keys(this.storage);
+		// console.log('nodeinfo', keys);
+		// those data for demo only, need get data from remote and update the store data
+		let func = () => {
+			for (let key in this.storage) {
+				if (key) {
+					this._nodeInfo[key] = {
+						'path': key.replace('.', '/'), //'slb/virtual-server/{name}/',
+						'validation': {
+				            'type':'string',
+				            'format':'string-rlx',
+				            'minLength':1,
+				            'maxLength':127,
+				            'description':'SLB Virtual Server Name',
+				            'optional':false
+				        }
+					};
+				}
+			}
+		
+
+			// TODO: callback, binder is ApiStore, use promise instead of callback
+			if (callback) {
+				callback.apply(binder);
+			}
+			// console.log(this._nodeInfo);
+		};
+
+		setTimeout(func, 1000);
 	}
 
 
