@@ -17,7 +17,8 @@ export default class Widget extends Component {
 	static propTypes = {
 		className: React.PropTypes.string,
 		onChange: React.PropTypes.func,
-		model: React.PropTypes.string
+		model: React.PropTypes.string,
+		title: React.PropTypes.string
 	}
 
 	componentWillMount() {
@@ -63,7 +64,7 @@ export default class Widget extends Component {
 	}
 
 	prepareClasses() {
-		let classes = 'widget row ' ;
+		let classes = 'widget row form-group' ;
 		if (this.props.className) {
 			classes += this.props.className;
 		}		
@@ -90,10 +91,17 @@ export default class Widget extends Component {
 	render() {
 
 		let classes = this.prepareClasses();
+		let title = 'No Title';
+		if (this.props.hasOwnProperty('title')) {
+			title = this.props.title;
+		}
 
 		return (
-			<div className={classes}>
+			<div className={classes} >
+				<label className="control-label" forHTML="inputSuccess1">{title}</label>
 				{this.props.children}
+				<span className="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
+				<span id="helpBlock" className="help-block">A block of help text that breaks onto a new line and may extend beyond one line.</span>
 			</div>
 		);
 	}

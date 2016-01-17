@@ -6,13 +6,16 @@ export default class TextInput extends Widget {
 
 	render() {
 		let {
+			title,
 			children,
 			...other
 		} = this.props;
 		
 		// console.log(this.state);
 		return (
-			<TextField onChange={this._onAddNode.bind(this)} {...other}>{children}</TextField>
+			<Widget title={title}>
+				<TextField  onChange={this._onAddNode.bind(this)} {...other}>{children}</TextField>
+			</Widget>
 		);
 	}
 }

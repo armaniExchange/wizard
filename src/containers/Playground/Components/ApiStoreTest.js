@@ -5,7 +5,8 @@ import {RaisedButtonWidget, TextInput} from '~/widgets/forms';
 // import AppDispatcher from '~/store/AppDispatcher';
 import ApiStore from '~/store/ApiStore';
 import Page from '~/containers/Page';
-
+import {FormWidget, SectionWidget, FieldWidget} from '~/widgets/forms/layouts';
+import {Col, Row} from '~/widgets/layouts';
 
 class ApiStoreTest extends Page {
 	
@@ -66,17 +67,31 @@ class ApiStoreTest extends Page {
 
 
 		return (
-			<main>
-				<div >
-				 	<TextInput model="slb.virtual-server.name" />
-				 	<TextInput model="slb.virtual-server.ip-address" />
-				 	<br/>
+			<FormWidget>
+				<SectionWidget >
+					<Col size="6">
+						<FieldWidget>
+					 		<TextInput model="slb.virtual-server.name" title="Name" />
+					 	</FieldWidget>
+				 	</Col>
 
-				 	<RaisedButtonWidget label="Show Page State"  onClick={this.showNode} /> <br/>
-				 	<RaisedButtonWidget label="Show Node Info"  onClick={this.showNodeInfo} /> <br/>
-			 	</div>
+				 	<Col size="6">
+						<FieldWidget>
+					 		<TextInput model="slb.virtual-server.ip-address" title="IPv4" />
+					 	</FieldWidget>
 
-			 	<div>
+						<FieldWidget>
+					 		<TextInput model="slb.virtual-server.ipv6-address" title="IPv6" />
+						</FieldWidget>					 	
+
+						<Row>
+					 		<RaisedButtonWidget label="Show Page State"  onClick={this.showNode} /> 
+					 		<RaisedButtonWidget label="Show Node Info"  onClick={this.showNodeInfo} /> 
+					 	</Row>
+				 	</Col>
+			 	</SectionWidget>
+
+			 	<SectionWidget>
 				 	<h3> Node Value </h3>
 					<ul>
 						{lists}
@@ -87,10 +102,10 @@ class ApiStoreTest extends Page {
 						{nodeInfoList}
 					</ul>
 
-				</div>
+				</SectionWidget>
 
 
-			</main>
+			</FormWidget>
 		);
 	}
 }

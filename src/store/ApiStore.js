@@ -9,8 +9,10 @@ import AXAPIModel from '~/store/AXAPIModel';
 var CHANGE_EVENT = 'change';
 
 var ApiStore = {}, apiModel = new AXAPIModel();
-Object.assign(ApiStore, EventEmitter.prototype, {
+EventEmitter.prototype._maxListeners = 1000;
 
+
+Object.assign(ApiStore, EventEmitter.prototype, {	
 	init: function() {
 		// console.log('init page flow store');
 	},
@@ -105,7 +107,13 @@ ApiStore.dispatchToken = AppDispatcher.register(function(action) {
 		// called by page component mounted
 		case ActionTypes.UPDATE_NODE_INFO:
 			// console.log('hey, there');
-			apiModel.updateNodeInfo(ApiStore.emitChange, ApiStore);
+			// apiModel.updateNodeInfo(ApiStore.emitChange, ApiStore);
+			let prom = apiModel.updateNodeInfo();
+			// console.log('update node info ', prom);
+			prom.then(() => {
+				// console.log('promise', value);
+				ApiStore.emitChange();   
+			});
 			// ApiStore.emitChange();
 			break;
 

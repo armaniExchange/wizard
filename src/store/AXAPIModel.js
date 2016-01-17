@@ -90,7 +90,8 @@ class AXAPIModel extends Model {
 	} 
 
 	// only call once on one page
-	updateNodeInfo(callback,binder) {
+	updateNodeInfo() {
+
 		if (this._nodeInfo.length) {
 			//this._nodeInfo = {};
 			// console.log(this._nodeInfo);
@@ -101,32 +102,40 @@ class AXAPIModel extends Model {
 		// let keys = Object.keys(this.storage);
 		// console.log('nodeinfo', keys);
 		// those data for demo only, need get data from remote and update the store data
-		let func = () => {
-			for (let key in this.storage) {
-				if (key) {
-					this._nodeInfo[key] = {
-						'path': key.replace('.', '/'), //'slb/virtual-server/{name}/',
-						'validation': {
-				            'type':'string',
-				            'format':'string-rlx',
-				            'minLength':1,
-				            'maxLength':127,
-				            'description':'SLB Virtual Server Name',
-				            'optional':false
-				        }
-					};
-				}
-			}
-		
 
-			// TODO: callback, binder is ApiStore, use promise instead of callback
-			if (callback) {
-				callback.apply(binder);
-			}
-			// console.log(this._nodeInfo);
-		};
+		const self = this;
+		let prom = new Promise(function (resolve) {
+		    setTimeout(
+		   		function() {
+					for (let key in self.storage) {
+						if (key) {
+							self._nodeInfo[key] = {
+								'path': key.replace('.', '/'), //'slb/virtual-server/{name}/',
+								'validation': {
+						            'type':'string',
+						            'format':'string-rlx',
+						            'minLength':1,
+						            'maxLength':127,
+						            'description':'SLB Virtual Server Name',
+						            'optional':false
+						        }
+							};
+						}
+					}
+					// console.log('timeout');
 
-		setTimeout(func, 1000);
+					// TODO: callback, binder is ApiStore, use promise instead of callback
+					// if (callback) {
+					// 	callback.apply(binder);
+					// }
+					// console.log(self._nodeInfo);
+					resolve(self._nodeInfo);
+			    }, 
+				1000
+			);
+		});
+
+		return prom;
 	}
 
 
