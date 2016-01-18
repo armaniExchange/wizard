@@ -14,7 +14,7 @@ export default class TextInput extends Widget {
 		// console.log(this.state);
 		return (
 			<Widget title={title}>
-				<TextField  onChange={this._onAddNode.bind(this)} {...other}>{children}</TextField>
+				<TextField  onBlur={this._onAddNode.bind(this)} {...other}>{children}</TextField>
 			</Widget>
 		);
 	}

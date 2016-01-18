@@ -1,7 +1,7 @@
 // React & Redux
 import React from 'react';
 
-import {RaisedButtonWidget, TextInput} from '~/widgets/forms';
+import {RaisedButtonWidget, TextInput, RadiosInput, Radio, ToggleInput} from '~/widgets/forms';
 // import AppDispatcher from '~/store/AppDispatcher';
 import ApiStore from '~/store/ApiStore';
 import Page from '~/containers/Page';
@@ -73,6 +73,62 @@ class ApiStoreTest extends Page {
 						<FieldWidget>
 					 		<TextInput model="slb.virtual-server.name" title="Name" />
 					 	</FieldWidget>
+
+					 	<FieldWidget>
+					 		<TextInput model="slb.virtual-server.ipv6-address11" title="IPv6" />
+						</FieldWidget>					 	
+
+						<FieldWidget>
+							<RadiosInput model="slb.virtual-server.enabled" defaultSelected="item2" title="Enabled">
+								<Radio value="item1" label="go to ludicrous speed" style={{marginBottom:16}}/>
+								<Radio value="item2" label="go to ludicrous speed" style={{marginBottom:16}}/>
+								<Radio value="item3" label="go to ludicrous speed" style={{marginBottom:16}} disabled={true}/>
+							</RadiosInput>
+						</FieldWidget>					 	
+
+						<FieldWidget>
+							<ToggleInput  defaultToggled={true} model="security.waf.name" title="WAF Name" />
+						</FieldWidget>					 	
+
+						<FieldWidget>
+					 		<TextInput model="slb.virtual-server.ipv6-address14" title="IPv6" />
+						</FieldWidget>					 	
+
+						<FieldWidget>
+					 		<TextInput model="slb.virtual-server.ipv6-address15" title="IPv6" />
+						</FieldWidget>					 	
+
+						<FieldWidget>
+					 		<TextInput model="slb.virtual-server.ipv6-address16" title="IPv6" />
+						</FieldWidget>					 	
+
+						<FieldWidget>
+					 		<TextInput model="slb.virtual-server.ipv6-address17" title="IPv6" />
+						</FieldWidget>					 	
+
+						<FieldWidget>
+					 		<TextInput model="slb.virtual-server.ipv6-address18" title="IPv6" />
+						</FieldWidget>					 	
+
+						<FieldWidget>
+					 		<TextInput model="slb.virtual-server.ipv6-address19" title="IPv6" />
+						</FieldWidget>					 	
+
+						<FieldWidget>
+					 		<TextInput model="slb.virtual-server.ipv6-address20" title="IPv6" />
+						</FieldWidget>					 	
+
+						<FieldWidget>
+					 		<TextInput model="slb.virtual-server.ipv6-address21" title="IPv6" />
+						</FieldWidget>					 	
+
+						<FieldWidget>
+					 		<TextInput model="slb.virtual-server.ipv6-address22" title="IPv6" />
+						</FieldWidget>					 	
+
+						<FieldWidget>
+					 		<TextInput model="slb.virtual-server.ipv6-address23" title="IPv6" />
+						</FieldWidget>	
 				 	</Col>
 
 				 	<Col size="6">
@@ -81,8 +137,46 @@ class ApiStoreTest extends Page {
 					 	</FieldWidget>
 
 						<FieldWidget>
-					 		<TextInput model="slb.virtual-server.ipv6-address" title="IPv6" />
+					 		<TextInput model="slb.virtual-server.ipv6-address1" title="IPv6-1" />
 						</FieldWidget>					 	
+
+						<FieldWidget>
+					 		<TextInput model="slb.virtual-server.ipv6-address2" title="IPv62" />
+						</FieldWidget>					 	
+
+						<FieldWidget>
+					 		<TextInput model="slb.virtual-server.ipv6-address3" title="IPv63" />
+						</FieldWidget>					 	
+
+						<FieldWidget>
+					 		<TextInput model="slb.virtual-server.ipv6-address4" title="IPv64" />
+						</FieldWidget>					 	
+
+						<FieldWidget>
+					 		<TextInput model="slb.virtual-server.ipv6-address5" title="IPv65" />
+						</FieldWidget>					 	
+
+						<FieldWidget>
+					 		<TextInput model="slb.virtual-server.ipv6-address6" title="IPv66" />
+						</FieldWidget>					 	
+
+						<FieldWidget>
+					 		<TextInput model="slb.virtual-server.ipv6-address7" title="IPv6" />
+						</FieldWidget>					 	
+
+						<FieldWidget>
+					 		<TextInput model="slb.virtual-server.ipv6-address8" title="IPv6" />
+						</FieldWidget>					 	
+
+						<FieldWidget>
+					 		<TextInput model="slb.virtual-server.ipv6-address8" title="IPv6" />
+						</FieldWidget>					 	
+
+						<FieldWidget>
+					 		<TextInput model="slb.virtual-server.ipv6-address10" title="IPv6" />
+						</FieldWidget>					 	
+
+										 	
 
 						<Row>
 					 		<RaisedButtonWidget label="Show Page State"  onClick={this.showNode} /> 

@@ -31,15 +31,18 @@ export default class Widget extends Component {
 
 	componentDidMount() {
 		// console.log('componentDidMount');
-		PageFlowStore.addChangeListener(this.onPageChange);
-		ApiStore.addChangeListener(this.onAPIChange);
+		if (this.props.hasOwnProperty('model')) {
+			PageFlowStore.addChangeListener(this.onPageChange);
+			ApiStore.addChangeListener(this.onAPIChange);
+		}
 	}
 
 	componentWillUnmount() {
 		// console.log('componentWillUnmount');	
-
-	    PageFlowStore.removeChangeListener(this.onPageChange);
-	    ApiStore.removeChangeListener(this.onAPIChange);
+		if (this.props.hasOwnProperty('model')) {
+	    	PageFlowStore.removeChangeListener(this.onPageChange);
+	    	ApiStore.removeChangeListener(this.onAPIChange);
+	    }
 	}	
 
 	_onPageChange() {

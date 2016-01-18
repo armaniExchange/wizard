@@ -7,12 +7,15 @@ export default class RadiosInput extends Widget {
 
 	render() {
 		let {
+			title,
 			children,
 			...other
 		} = this.props;
 
 		return (
-			<RadioButtonGroup {...other}>{children}</RadioButtonGroup>
+			<Widget title={title}>
+				<RadioButtonGroup onChange={this._onAddNode.bind(this)}  {...other}>{children}</RadioButtonGroup>
+			</Widget>
 		);
 	}
 }

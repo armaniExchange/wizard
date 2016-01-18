@@ -20,15 +20,15 @@ class AXAPIModel extends Model {
 		// console.log('updated storage', this.storage);
 		// const data = NS.initializeNS(node, value);
 		// console.log(data);
-		// let obj = this.toApiObject();
-		// console.log(obj);
+		let obj = this.toApiObject();
+		console.log(obj);
 	}
 
 	toApiObject() {
 		let apiObj = {}, tmpObj = {}, storage = this.storage;
 		// console.log(this.storage);
 		for (var node in storage) {
-			if (storage[node]) {
+			if (storage[node] !== undefined) {
 				tmpObj = NS.initializeNS(node, this.storage[node]);
 				// console.log(tmpObj);
 				apiObj = NS.merge(apiObj, tmpObj);
