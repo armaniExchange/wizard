@@ -9,7 +9,7 @@ import EventEmitter from 'events';
 var CHANGE_EVENT = 'change';
 
 var PageFlowStore = {}, pageData = {'data': 'test'};
-EventEmitter.prototype._maxListeners = 1000;
+// EventEmitter.prototype._maxListeners = 1000;
 
 
 Object.assign(PageFlowStore, EventEmitter.prototype, {

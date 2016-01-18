@@ -11,10 +11,10 @@ export default class FormWidget extends Widget {
 		} = this.props;
 
 		return (
-			<div className="widget form" {...other}>
+			<form className="widget form" {...other}>
 				<h4>{title}</h4>
 				{this.props.children}
-			</div>
+			</form>
 		);
 	}	
 }

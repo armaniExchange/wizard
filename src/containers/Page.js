@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import React,{ Component } from 'react';
 import GlobalConfig from '~/constants/Configs';
 import PageFlowStore from '~/store/PageFlowStore';
 import ApiStore from '~/store/ApiStore';
@@ -57,6 +57,19 @@ class Page extends Component {
 	_onPageChange() {
 		// console.log('Hi , PageFlowStore init');
 		// console.log(PageFlowStore.getAll());
+	}
+
+	render() {
+		let {
+			children,
+			...other
+		} = this.props;
+
+		return (
+			<div className="container">
+				{children}
+			</div>
+		);
 	}
 }
 

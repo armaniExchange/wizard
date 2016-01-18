@@ -11,8 +11,8 @@ export default class FieldWidget extends Widget {
 
 	
 		return (
-			<div className="" >
-			  {children}		
+			<div className="widget fieldset">
+				{children}		
 			</div>
 		);
 	}	

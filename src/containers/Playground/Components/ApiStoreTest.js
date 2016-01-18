@@ -67,11 +67,11 @@ class ApiStoreTest extends Page {
 
 
 		return (
-			<FormWidget>
+			<FormWidget title="API Store">
 				<SectionWidget >
 					<Col size="6">
 						<FieldWidget>
-					 		<TextInput model="slb.virtual-server.name" title="Name" />
+					 		<TextInput model="slb.virtual-server.name" title="Name" helpText="test help information" />
 					 	</FieldWidget>
 
 					 	<FieldWidget>
@@ -79,7 +79,7 @@ class ApiStoreTest extends Page {
 						</FieldWidget>					 	
 
 						<FieldWidget>
-							<RadiosInput model="slb.virtual-server.enabled" defaultSelected="item2" title="Enabled">
+							<RadiosInput model="slb.virtual-server.enabled" defaultSelected="item2" name="enabled" title="Enabled">
 								<Radio value="item1" label="go to ludicrous speed" style={{marginBottom:16}}/>
 								<Radio value="item2" label="go to ludicrous speed" style={{marginBottom:16}}/>
 								<Radio value="item3" label="go to ludicrous speed" style={{marginBottom:16}} disabled={true}/>

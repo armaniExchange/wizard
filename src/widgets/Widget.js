@@ -1,47 +1,68 @@
+import classNames from 'classnames';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+
 import './Widget.scss';
 
 import React, { Component } from 'react';
-import PageFlowStore from '~/store/PageFlowStore';
+// import PageFlowStore from '~/store/PageFlowStore';
 import ApiStore from '~/store/ApiStore';
 // import AppDispatcher from '~/store/AppDispatcher';
 import * as Actions from '~/store/actions';
 
+
 export default class Widget extends Component {
 	constructor(props) {
 		super(props);
-		// this.state = {nodeInfo:{}};
+		this.state = {
+			nodeInfo:{}, 
+			value: null,
+			// inputHelp: '',
+			errorText: ''
+		};
 		this.onAPIChange = ::this._onAPIChange;
 		this.onPageChange = ::this._onPageChange;
+		this.onAddNode = ::this._onAddNode;
 	}
 
 	static propTypes = {
 		className: React.PropTypes.string,
 		onChange: React.PropTypes.func,
 		model: React.PropTypes.string,
-		title: React.PropTypes.string
+		title: React.PropTypes.string,
+		helpText: React.PropTypes.string
 	}
 
 	componentWillMount() {
-		// console.log('componentDidMount');
+		// console.log('componentWillMount');
 		if (this.props.hasOwnProperty('model')) {
-			// console.log(this.props.model);
 			Actions.updateNode(this.props.model);
-		}
+		}		
 	}
 
 	componentDidMount() {
 		// console.log('componentDidMount');
 		if (this.props.hasOwnProperty('model')) {
-			PageFlowStore.addChangeListener(this.onPageChange);
+			Actions.updateNode(this.props.model, this.getValue());
 			ApiStore.addChangeListener(this.onAPIChange);
+			ApiStore.addListener(this.props.model,this.onAPIChange);
 		}
+
+	}
+
+	shouldComponentUpdate() {
+		// console.log('shouldComponentUpdate');	
+		return true;
+	}
+
+	componentWillUpdate() {
+
 	}
 
 	componentWillUnmount() {
-		// console.log('componentWillUnmount');	
+		console.log('componentWillUnmount');	
 		if (this.props.hasOwnProperty('model')) {
-	    	PageFlowStore.removeChangeListener(this.onPageChange);
 	    	ApiStore.removeChangeListener(this.onAPIChange);
+	    	ApiStore.removeListener(this.props.model, this.onAPIChange);
 	    }
 	}	
 
@@ -53,7 +74,6 @@ export default class Widget extends Component {
 	_onAPIChange() {
 		// console.log('Hi , APi Store Change happened', this);
 		if (this.props.hasOwnProperty('model')) {
-			// console.log(this.props.model);
 			let nodeInfo = ApiStore.getNodeInfo(this.props.model);
 			if (nodeInfo) {
 				// console.log(nodeInfo);
@@ -66,45 +86,87 @@ export default class Widget extends Component {
 
 	}
 
-	prepareClasses() {
-		let classes = 'widget row form-group' ;
-		if (this.props.className) {
-			classes += this.props.className;
-		}		
-		return classes;
+	// prepareClasses() {
+	// 	// use 
+	// 	let classes = 'widget form-group' ;
+	// 	if (this.props.className) {
+	// 		classes += this.props.className;
+	// 	}		
+	// 	return classes;
+	// }
+
+
+	_onAddNode() {
+		// console.log('default widget change triggled ');
+		if (this.props.hasOwnProperty('model')) {
+			Actions.updateNode(this.props.model, this.getValue());
+		    // this.setState(ApiStore.getAllNodes());
+		    // console.log(this.state);
+		}
+		// this._onValide();
+		// this.setState({
+		// 	errorText: 'This is Error Text'
+		// });		
+		// this.forceUpdate();
 	}
 
-
-	_onAddNode(e) {
-		// console.log(e);
-		if (this.props.hasOwnProperty('onChange')) {
-			this.props.onChange.call(this, e);
-		} else {
-			// console.log('default widget change triggled ');
-			if (this.props.hasOwnProperty('model')) {
-				Actions.updateNode(this.props.model, e.target.value);
-			    this.setState(ApiStore.getAllNodes());
-			    // console.log(this.state);
-			}
-		}
-
+	// _onValide() {
+	// 	// try validation only
+	// 	this.setState({
+	// 		errorText: 'This is Error Text'
+	// 	});
+	// 	// console.log('try validation', this.state);
+	// }
+	
+	getValue() {
+		return 	null;
 	}
 	
+	clearValue() {
+	}
+
+	setValue(newValue) {
+		this.setState({value:newValue});
+	}
+
 
 	render() {
 
-		let classes = this.prepareClasses();
-		let title = 'No Title';
-		if (this.props.hasOwnProperty('title')) {
-			title = this.props.title;
+		// let classes = this.prepareClasses();
+		let {
+			helpText,
+			title, 
+			...other
+		} = this.props;
+
+
+		let helpElement = '';
+		if (helpText) {
+			helpElement = <span className="help-block">{helpText}</span>;
+		}
+		// console.log(helpText);
+
+		let classes = {
+			'widget form-group': true
+		};
+		// console.log('triggled rendering', this.state);
+		if (this.state.errorText) {
+			helpElement = <span className="help-block">{this.state.errorText}</span>;
+			classes['has-error'] = true;
+			// console.log('error');
 		}
 
+		let classSet = classNames(classes);
+
+		// show help text
+		// we can animation
 		return (
-			<div className={classes} >
-				<label className="control-label" forHTML="inputSuccess1">{title}</label>
+			<div className={classSet} >
+				<label className="control-label">{title}</label>
 				{this.props.children}
-				<span className="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
-				<span id="helpBlock" className="help-block">A block of help text that breaks onto a new line and may extend beyond one line.</span>
+				<ReactCSSTransitionGroup transitionName="widget-help" transitionEnterTimeout={500} transitionLeaveTimeout={300}>
+				{helpElement}
+				</ReactCSSTransitionGroup>
 			</div>
 		);
 	}

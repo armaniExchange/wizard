@@ -20,8 +20,8 @@ class AXAPIModel extends Model {
 		// console.log('updated storage', this.storage);
 		// const data = NS.initializeNS(node, value);
 		// console.log(data);
-		let obj = this.toApiObject();
-		console.log(obj);
+		// let obj = this.toApiObject();
+		// console.log(obj);
 	}
 
 	toApiObject() {
@@ -116,7 +116,7 @@ class AXAPIModel extends Model {
 						            'format':'string-rlx',
 						            'minLength':1,
 						            'maxLength':127,
-						            'description':'SLB Virtual Server Name',
+						            'description': 'model name ' + key,
 						            'optional':false
 						        }
 							};

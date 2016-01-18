@@ -9,3 +9,21 @@
 	min-height: 24px;
 	background:#fff;
 }
+
+.widget-help-enter {
+  opacity: 0.01;
+}
+
+.widget-help-enter.widget-help-enter-active {
+  opacity: 1;
+  transition: opacity 500ms ease-in;
+}
+
+.widget-help-leave {
+  opacity: 1;
+}
+
+.widget-help-leave.widget-help-leave-active {
+  opacity: 0.01;
+  transition: opacity 300ms ease-in;
+}

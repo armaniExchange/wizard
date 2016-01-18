@@ -9,7 +9,7 @@ import AXAPIModel from '~/store/AXAPIModel';
 var CHANGE_EVENT = 'change';
 
 var ApiStore = {}, apiModel = new AXAPIModel();
-EventEmitter.prototype._maxListeners = 1000;
+// EventEmitter.prototype._maxListeners = 1000;
 
 
 Object.assign(ApiStore, EventEmitter.prototype, {	
@@ -33,6 +33,19 @@ Object.assign(ApiStore, EventEmitter.prototype, {
 	 */
 	removeChangeListener: function(callback) {
 		this.removeListener(CHANGE_EVENT, callback);
+	},
+
+
+	addListener: function(eventName, callback) {
+		this.on(eventName, callback);
+	},
+
+	removeListener: function(eventName, callback) {
+		this.removeListener(eventName, callback);
+	},
+
+	emitEvent: function(eventName) {
+		this.emit(eventName);
 	},
 
 	searchRecord: function(node, conditions={}) {
@@ -60,6 +73,9 @@ Object.assign(ApiStore, EventEmitter.prototype, {
 
 });
 
+// avoid the warning messages
+ApiStore.setMaxListeners(1000);
+
 ApiStore.dispatchToken = AppDispatcher.register(function(action) {
 	// console.log(action, ActionTypes);
 	switch (action.actionType) {
@@ -67,35 +83,35 @@ ApiStore.dispatchToken = AppDispatcher.register(function(action) {
 		case ActionTypes.UPDATE:
 			// console.log('execute UPDATE action');
 			apiModel.doUpdate();
-			ApiStore.emitChange();
+			// ApiStore.emitChange();
 			break;
 
 		case ActionTypes.DELETE:
 			// console.log('execute DELETE action');
 			apiModel.doDelete();
-			ApiStore.emitChange();
+			// ApiStore.emitChange();
 			break;
 
 		case ActionTypes.ADD:
 			// console.log('execute ADD action');
-			ApiStore.emitChange();
+			// ApiStore.emitChange();
 			break;
 
 		case ActionTypes.SEARCH:
 			// console.log('execute SEARCH action');
 			apiModel.doSearch();
-			ApiStore.emitChange();
+			// ApiStore.emitChange();
 			break;
 
 		case ActionTypes.STATUS:
 			// console.log('execute Operate status action');
-			ApiStore.emitChange();
+			// ApiStore.emitChange();
 			break;
 
 		case ActionTypes.UPDATE_NODE:
 			// console.log('execute UPDATE NODE action');
 			apiModel.updateNodeValue(action.node, action.value);
-			ApiStore.emitChange();   
+			ApiStore.emitEvent(action.node);   
 			break;
 
 		// case ActionTypes.REGISTER_NODE:

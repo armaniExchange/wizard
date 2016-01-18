@@ -18,7 +18,7 @@ export default class Row extends Layout {
 		}
 
 		return (
-			<div className="widget row">
+			<div className="widget">
 				{children}
 			</div>
 		);

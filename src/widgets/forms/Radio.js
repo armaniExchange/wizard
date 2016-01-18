@@ -15,7 +15,7 @@ export default class RadioInput extends Widget {
 		} = this.props;
 
 		return (
-			<RadioButton onChange={this._onAddNode.bind(this)}  {...other}>{children}</RadioButton>
+			<RadioButton onChange={this.onAddNode}  {...other}>{children}</RadioButton>
 		);
 		
 	}
