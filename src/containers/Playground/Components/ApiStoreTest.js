@@ -46,8 +46,9 @@ class ApiStoreTest extends Page {
 	render() {
 		// console.dir(this.state);
 		let {
-			// actionMode,
-			nodeInfo, 
+			actionMode,
+			operateResult,
+			nodeInfo, 			
 			...otherData
 		} = this.state;
 
@@ -59,13 +60,21 @@ class ApiStoreTest extends Page {
 			});
 		}
 
-		let nodeInfoList = [];
-		if (nodeInfo) {
-			nodeInfoList = Object.keys(nodeInfo).map((key,i) => {
-				return <li key={i}>key:{key} value:{nodeInfo[key]}</li> ;
-			});
-		}
+		// let nodeInfoList = [];
+		// if (nodeInfo) {
+		// 	nodeInfoList = Object.keys(nodeInfo).map((key,i) => {
+		// 		return <li key={i}>key:{key} value:{nodeInfo[key]}</li> ;
+		// 	});
+		// }
+
+		// let resultList = [];
+		// if (operateResult) {
+		// 	resultList = Object.keys(operateResult).map((key,i) => {
+		// 		return <li key={i}>key:{key} value:{operateResult[key]}</li> ;
+		// 	});
+		// }
 		
+		console.log('this is state', this.state);
 
 
 		return (
@@ -198,10 +207,7 @@ class ApiStoreTest extends Page {
 						{lists}
 					</ul>
 
-					<h3> Node Info </h3>
-					<ul>
-						{nodeInfoList}
-					</ul>
+
 
 				</SectionWidget>
 

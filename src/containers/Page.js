@@ -11,7 +11,8 @@ class Page extends Component {
 		this.onFormSubmit = ::this._onFormSubmit;
 		this.onPageChange = ::this._onPageChange;
 		this.state = {
-			actionMode: ActionTypes.UPDATE
+			actionMode: ActionTypes.UPDATE,
+			operateResult: {}
 		};
 	}
 
@@ -63,6 +64,10 @@ class Page extends Component {
 	// update the page , example, once add an item, will triggle this
 	_onPageChange() {
 		const operateResult = ApiStore.getOperateDetail();
+		this.setState({
+			'operateResult': operateResult
+		});
+		
 		console.log('Hi , PageFlowStore init', operateResult);
 		// console.log(PageFlowStore.getAll());
 	}

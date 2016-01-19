@@ -53,6 +53,8 @@ class AXAPIModel extends Model {
 	}
 
 	doUpdate(conditions={}, nodes=null) {
+		// need first check the dependence from the GUI dependence storage
+
 		console.log('Model Update', nodes, conditions);
 		let prom = new Promise(function (resolve) {
 			setTimeout(() => {
@@ -74,8 +76,9 @@ class AXAPIModel extends Model {
 		this.result = {
 		 	code: 1, // 0, 1, ... need defined on a constants
 		 	errors: {
-		 		item1: {ret:0, sent:1},
-		 		item2: {ret:'String1', sent:'String2'}
+		 		'slb.virtual-server.name': {ret:'', sent:'test'},
+		 		'slb.virtual-server.ipv6-address11': {ret:'4.4.4.4', sent:'4.4.4.5'},
+		 		'slb.virtual-server.ipv6-address12': {ret:'4.4.4.4', sent:'4.4.4.5'}
 			}
 		};
 		 
@@ -117,6 +120,7 @@ class AXAPIModel extends Model {
 						if (key) {
 							self._nodeInfo[key] = {
 								'path': key.replace('.', '/'), //'slb/virtual-server/{name}/',
+								'depends': 'cmroot', // one element depends on another elements
 								'validation': {
 						            'type':'string',
 						            'format':'string-rlx',
