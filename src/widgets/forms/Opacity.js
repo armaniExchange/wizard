@@ -8,7 +8,14 @@ import Widget from '../Widget';
 
 export default class Opacity extends Widget {
 
-	render() {
-		return false;
+	getValue() {
+		if (this.props.hasOwnProperty('value')) {
+			return 	this.props.value;	
+		} else {
+			return super.getValue();
+		}		
 	}
+
+
+
 }

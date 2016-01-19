@@ -19,6 +19,9 @@ class App extends Page {
 	// 	appActions  : PropTypes.object.isRequired,
 	// 	location   : PropTypes.object.isRequired
 	// }
+	componentDidMount() {
+		// console.log('componentDidMount');
+	}
 
 	componentDidUpdate() {
 		/* eslint-disable */
@@ -28,6 +31,11 @@ class App extends Page {
 		componentHandler.upgradeDom();
 		/* eslint-enable */
 	}
+
+
+	componentWillUnmount() {
+		// console.log('componentWillUnmount');	
+	}		
 
 	render() {
 		// const {

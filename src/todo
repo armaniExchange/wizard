@@ -1,3 +1,5 @@
 TODO:
 
 1. Read widget's node info, also the dependence from schema.txt, not JSON, because JSON has no dependence items
+2. Form submit do a global dependency check , while each inputs blur or change do the single value check
+3. Once submitted the value, and then fetch the returns data and do a diff

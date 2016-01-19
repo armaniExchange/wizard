@@ -24,9 +24,24 @@ export function updateNodeInfo() {
     });
 }
 
-// export function getWidgetProps(node) {
-// 	AppDispatcher.dispatch({
-//       actionType: ActionTypes.WIDGET_INFO,
-//       node:  node
-//     });
-// }
+export function actionUpdate(conditions=null, nodes=null) {
+	AppDispatcher.dispatch({
+      actionType: ActionTypes.UPDATE,
+      nodes:  nodes,
+      conditions: conditions
+    });
+}
+
+export function actionAdd(nodes=null) {
+	AppDispatcher.dispatch({
+      actionType: ActionTypes.ADD,
+      nodes:  nodes,
+    });
+}
+
+export function actionDelete(conditions) {
+	AppDispatcher.dispatch({
+      actionType: ActionTypes.DELETE,
+      conditions: conditions
+    });
+}

@@ -9,6 +9,8 @@ import ApiStore from '~/store/ApiStore';
 // import AppDispatcher from '~/store/AppDispatcher';
 import * as Actions from '~/store/actions';
 
+import validation from '~/store/validations';
+
 
 export default class Widget extends Component {
 	constructor(props) {
@@ -29,7 +31,9 @@ export default class Widget extends Component {
 		onChange: React.PropTypes.func,
 		model: React.PropTypes.string,
 		title: React.PropTypes.string,
-		helpText: React.PropTypes.string
+		helpText: React.PropTypes.string,
+		errorText: React.PropTypes.string,
+		value: React.PropTypes.string
 	}
 
 	componentWillMount() {
@@ -46,7 +50,6 @@ export default class Widget extends Component {
 			ApiStore.addChangeListener(this.onAPIChange);
 			ApiStore.addListener(this.props.model,this.onAPIChange);
 		}
-
 	}
 
 	shouldComponentUpdate() {
@@ -103,23 +106,26 @@ export default class Widget extends Component {
 		    // this.setState(ApiStore.getAllNodes());
 		    // console.log(this.state);
 		}
-		// this._onValide();
+		this._onValidate();
 		// this.setState({
 		// 	errorText: 'This is Error Text'
 		// });		
 		// this.forceUpdate();
 	}
 
-	// _onValide() {
-	// 	// try validation only
-	// 	this.setState({
-	// 		errorText: 'This is Error Text'
-	// 	});
-	// 	// console.log('try validation', this.state);
-	// }
-	
+	_onValidate() {
+		// try validation only
+		const validationInfo = validation.test(this.state.nodeInfo['validation']);
+		if (!validationInfo['result']) {
+			this.setState({
+				errorText: validationInfo['info']
+			});
+		}
+		// console.log('try validation', this.state);
+	}
+
 	getValue() {
-		return 	null;
+		return 	this.state.value;
 	}
 	
 	clearValue() {
@@ -150,8 +156,9 @@ export default class Widget extends Component {
 			'widget form-group': true
 		};
 		// console.log('triggled rendering', this.state);
-		if (this.state.errorText) {
-			helpElement = <span className="help-block">{this.state.errorText}</span>;
+		let errorPlace = '';
+		if (this.props.errorText) {
+			errorPlace = <span className="label label-danger">{this.props.errorText}</span>;
 			classes['has-error'] = true;
 			// console.log('error');
 		}
@@ -166,6 +173,7 @@ export default class Widget extends Component {
 				{this.props.children}
 				<ReactCSSTransitionGroup transitionName="widget-help" transitionEnterTimeout={500} transitionLeaveTimeout={300}>
 				{helpElement}
+				{errorPlace}
 				</ReactCSSTransitionGroup>
 			</div>
 		);

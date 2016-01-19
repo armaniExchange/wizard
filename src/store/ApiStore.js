@@ -13,6 +13,9 @@ var ApiStore = {}, apiModel = new AXAPIModel();
 
 
 Object.assign(ApiStore, EventEmitter.prototype, {	
+	// tmp prom store for other Store to use
+	promise : null,
+
 	init: function() {
 		// console.log('init page flow store');
 	},
@@ -48,8 +51,8 @@ Object.assign(ApiStore, EventEmitter.prototype, {
 		this.emit(eventName);
 	},
 
-	searchRecord: function(node, conditions={}) {
-		apiModel.setCurrentNode(node);
+	searchRecord: function(conditions={}) {
+		// apiModel.setCurrentNode(node);
 		return apiModel.doSearch(conditions);
 	},
 
@@ -69,6 +72,14 @@ Object.assign(ApiStore, EventEmitter.prototype, {
 	getOperateDetail: function(node) {
 		apiModel.setCurrentNode(node);
 		return apiModel.getOperateDetail();
+	}, 
+
+	updatePromise: function (prom) {
+		this.promise = prom;
+	},
+
+	getPromise: function () {
+		return this.promise;
 	}
 
 });
@@ -78,35 +89,28 @@ ApiStore.setMaxListeners(1000);
 
 ApiStore.dispatchToken = AppDispatcher.register(function(action) {
 	// console.log(action, ActionTypes);
+	let prom = null;
 	switch (action.actionType) {
 
 		case ActionTypes.UPDATE:
-			// console.log('execute UPDATE action');
-			apiModel.doUpdate();
+			console.log('execute UPDATE action On ApiStore');
+			prom = apiModel.doUpdate(action.conditions, action.nodes);
 			// ApiStore.emitChange();
+			ApiStore.updatePromise(prom);
 			break;
 
 		case ActionTypes.DELETE:
-			// console.log('execute DELETE action');
-			apiModel.doDelete();
+			console.log('execute DELETE action  On ApiStore');
+			apiModel.doDelete(action.conditions);
 			// ApiStore.emitChange();
 			break;
 
 		case ActionTypes.ADD:
-			// console.log('execute ADD action');
+			console.log('execute ADD action  On ApiStore');
+			apiModel.doAdd(action.nodes);
 			// ApiStore.emitChange();
 			break;
 
-		case ActionTypes.SEARCH:
-			// console.log('execute SEARCH action');
-			apiModel.doSearch();
-			// ApiStore.emitChange();
-			break;
-
-		case ActionTypes.STATUS:
-			// console.log('execute Operate status action');
-			// ApiStore.emitChange();
-			break;
 
 		case ActionTypes.UPDATE_NODE:
 			// console.log('execute UPDATE NODE action');
@@ -124,13 +128,14 @@ ApiStore.dispatchToken = AppDispatcher.register(function(action) {
 		case ActionTypes.UPDATE_NODE_INFO:
 			// console.log('hey, there');
 			// apiModel.updateNodeInfo(ApiStore.emitChange, ApiStore);
-			let prom = apiModel.updateNodeInfo();
+			prom = apiModel.updateNodeInfo();
 			// console.log('update node info ', prom);
 			prom.then(() => {
 				// console.log('promise', value);
 				ApiStore.emitChange();   
 			});
 			// ApiStore.emitChange();
+			ApiStore.updatePromise(prom);
 			break;
 
 		default:

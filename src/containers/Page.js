@@ -1,15 +1,21 @@
 import React,{ Component } from 'react';
-import GlobalConfig from '~/constants/Configs';
+// import GlobalConfig from '~/constants/Configs';
 import PageFlowStore from '~/store/PageFlowStore';
 import ApiStore from '~/store/ApiStore';
 import * as Actions from '~/store/actions';
+import * as ActionTypes from '~/constants/action-types';
 
 class Page extends Component {
 	constructor(props) {
 		super(props);
+		this.onFormSubmit = ::this._onFormSubmit;
+		this.onPageChange = ::this._onPageChange;
+		this.state = {
+			actionMode: ActionTypes.UPDATE
+		};
 	}
 
-	mixins = [GlobalConfig]
+	// mixins = [GlobalConfig]
 
 	// static getInitialState() {
 	// 	return PageFlowStore.getAll();
@@ -21,8 +27,8 @@ class Page extends Component {
 
 	componentDidMount() {
 		// console.log('componentDidMount');
-		PageFlowStore.addChangeListener(this._onPageChange);
-		ApiStore.addChangeListener(this._onAPIChange);
+		PageFlowStore.addChangeListener(this.onPageChange);
+		// ApiStore.addChangeListener(this._onAPIChange);
 		Actions.updateNodeInfo();
 	}
 
@@ -45,8 +51,8 @@ class Page extends Component {
 
 	componentWillUnmount() {
 		// console.log('componentWillUnmount');	
-	    PageFlowStore.removeChangeListener(this._onPageChange);
-	    ApiStore.removeChangeListener(this._onAPIChange);
+	    PageFlowStore.removeChangeListener(this.onPageChange);
+	    // ApiStore.removeChangeListener(this._onAPIChange);
 	}	
 
 	_onAPIChange() {
@@ -54,9 +60,27 @@ class Page extends Component {
 		// console.log(PageFlowStore.getAll());
 	}	
 
+	// update the page , example, once add an item, will triggle this
 	_onPageChange() {
-		// console.log('Hi , PageFlowStore init');
+		const operateResult = ApiStore.getOperateDetail();
+		console.log('Hi , PageFlowStore init', operateResult);
 		// console.log(PageFlowStore.getAll());
+	}
+
+	_onFormSubmit() {
+		// console.log(this);
+		// need init the action mode before page loading
+		// once ready, comment this line
+		// this.setState({actionMode: ActionTypes.UPDATE});
+
+		if (this.state.actionMode === ActionTypes.UPDATE) {
+			Actions.actionUpdate();	
+		} else if (this.state.actionMode === ActionTypes.ADD) {
+			Actions.actionAdd();				
+		} else if (this.state.actionMode === ActionTypes.DELETE) {
+			Actions.actionDelete();				
+		}
+		// console.log('state', this);
 	}
 
 	render() {

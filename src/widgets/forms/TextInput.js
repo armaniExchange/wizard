@@ -35,7 +35,7 @@ export default class TextInput extends Widget {
 
 		// console.log('node info', this.state.nodeInfo);
 		return (
-			<Widget title={title} helpText={helpText}>
+			<Widget title={title} helpText={helpText} errorText={this.state.errorText}>
 				<TextField ref="TextField" onBlur={this.onAddNode} {...other}>{children}</TextField>
 			</Widget>
 		);

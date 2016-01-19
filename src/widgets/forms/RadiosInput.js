@@ -21,11 +21,12 @@ export default class RadiosInput extends Widget {
 		let {
 			title,
 			children,
+			helpText,
 			...other
 		} = this.props;
 
 		return (
-			<Widget title={title}>
+			<Widget title={title} helpText={helpText} errorText={this.state.errorText}>
 				<RadioButtonGroup ref="RadioButtonGroup" onChange={this.onAddNode}  {...other}>{children}</RadioButtonGroup>
 			</Widget>
 		);

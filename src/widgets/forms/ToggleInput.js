@@ -21,11 +21,12 @@ export default class ToggleInput extends Widget {
 		let {
 			title,
 			children,
+			helpText,
 			...other
 		} = this.props;
 
 		return (
-			<Widget title={title}>
+			<Widget title={title} helpText={helpText} errorText={this.state.errorText}>
 				<Toggle  ref="Toggle" {...other}  onToggle={this.onAddNode} />
 			</Widget>
 		);

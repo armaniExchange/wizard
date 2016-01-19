@@ -47,15 +47,20 @@ class AXAPIModel extends Model {
 		return true;
 	}
 
-	doAdd(records) {
-		console.log('Model Add', records);
+	doAdd(nodes=null) {
+		console.log('Model Add', nodes);
 		return {};
 	}
 
-	doUpdate(records, conditions={}) {
-		console.log('Model Update', records, conditions);
-
-		return {};
+	doUpdate(conditions={}, nodes=null) {
+		console.log('Model Update', nodes, conditions);
+		let prom = new Promise(function (resolve) {
+			setTimeout(() => {
+				console.log('model updated');
+				resolve('the api returned values list');
+			}, 1000);
+		});
+		return prom;
 	}
 
 	doSearch(conditions={}) {
@@ -63,17 +68,18 @@ class AXAPIModel extends Model {
 		return {};
 	}
 
-	getOperateDetail(record, conditions={}) {
-		console.log('get Operate Detail', conditions);
-		/*
-		 * {
-		 	code: 0, 
+	getOperateDetail() {
+		// console.log('get Operate Detail', this.result);
+		// diff
+		this.result = {
+		 	code: 1, // 0, 1, ... need defined on a constants
 		 	errors: {
-		 		item1: {return:0, send:1},
-		 		item2: {return:'String1', send:'String2'}
-		 * }, }
-		 */
-		return {};
+		 		item1: {ret:0, sent:1},
+		 		item2: {ret:'String1', sent:'String2'}
+			}
+		};
+		 
+		return this.result;
 	}
 
 	getNodeInfo(node=null) {

@@ -1,12 +1,13 @@
 // React & Redux
 import React from 'react';
 
-import {RaisedButtonWidget, TextInput, RadiosInput, Radio, ToggleInput} from '~/widgets/forms';
+import {RaisedButtonWidget, TextInput, RadiosInput, Radio, ToggleInput, Opacity} from '~/widgets/forms';
 // import AppDispatcher from '~/store/AppDispatcher';
 import ApiStore from '~/store/ApiStore';
 import Page from '~/containers/Page';
 import {FormWidget, SectionWidget, FieldWidget} from '~/widgets/forms/layouts';
 import {Col, Row} from '~/widgets/layouts';
+// import * as Actions from '~/store/actions';
 
 class ApiStoreTest extends Page {
 	
@@ -14,7 +15,6 @@ class ApiStoreTest extends Page {
 		super(props);
 		this.showNode = ::this._showNode;
 		this.showNodeInfo = ::this._showNodeInfo;
-		this.state = {};
 	}
 
 	_showNode() {
@@ -40,11 +40,13 @@ class ApiStoreTest extends Page {
 	    // this.setState(nodeInfo);
 	}
 	
+	
 
 	
 	render() {
 		// console.dir(this.state);
 		let {
+			// actionMode,
 			nodeInfo, 
 			...otherData
 		} = this.state;
@@ -181,6 +183,11 @@ class ApiStoreTest extends Page {
 						<Row>
 					 		<RaisedButtonWidget label="Show Page State"  onClick={this.showNode} /> 
 					 		<RaisedButtonWidget label="Show Node Info"  onClick={this.showNodeInfo} /> 
+					 		<Opacity value="test-primary-key" model="slb.virtual-server.primary-key" />
+					 	</Row>
+
+						<Row>
+					 		<RaisedButtonWidget label="Apply" primary={true} onClick={this.onFormSubmit}  /> 
 					 	</Row>
 				 	</Col>
 			 	</SectionWidget>

@@ -11,6 +11,7 @@ class Model extends Component {
 		this._validations = {};
 		this._returnedNode = {};
 		this._sentNode = {};
+		this._result = {};// operate result
 	}
 
 
@@ -48,6 +49,10 @@ class Model extends Component {
 		return this._sentNode;
 	}
 
+	get result() {
+		return this._result;
+	}
+
 	set currentNode(value) {
 		this._currentNode = value;
 	}
@@ -72,6 +77,10 @@ class Model extends Component {
 		this._sentNode = value;
 	}
 
+	set result(value) {
+		this._result = value;
+	}
+
 
 	doDelete(conditions) {
 		console.log(conditions);
@@ -94,8 +103,8 @@ class Model extends Component {
 		return {};
 	}
 
-	getOperateDetail(record, conditions={}) {
-		console.log(conditions);
+	getOperateDetail() {
+		// console.log(conditions);
 		/*
 		 * {
 		 	code: 0, 
@@ -104,7 +113,7 @@ class Model extends Component {
 		 		item2: {return:'String1', send:'String2'}
 		 * }, }
 		 */
-		return {};
+		return this._result;
 	}
 
 }
